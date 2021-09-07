@@ -13,7 +13,7 @@
     </head>
     <body>
     <!----- ヘッダー ----->
-    <header><img src="{{ asset('images/freefont_logo_PopRumCute.otf.png') }}">〜働く男のための健康メニュー1週間分〜</header>
+    <header><img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf.png') }}"><img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf2.png') }}"></header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ route('top') }}">Top</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
     <li><a class="nav-link" href="{{ route('menu.index') }}">メニュー管理</a></li>
-    <li></li>
+    <li><a class="nav-link" href="{{ route('logout') }}">ログアウト</a></li>
     </ul>
     </nav>
     <!----- ヘッダー END ----->

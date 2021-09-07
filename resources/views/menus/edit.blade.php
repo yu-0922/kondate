@@ -2,8 +2,8 @@
 @section('title', 'メニュー編集')
 
 @section('content')
-    <h2>必要な箇所を編集して送信してください</h2>
-    <form method="POST" action="{{ route('menu.edit', ['theMenu' => $theMenu]) }}">
+    <h2>必要な箇所を編集し送信してください</h2>
+    <form method="POST" action="{{ route('menu.update', ['theMenu' => $theMenu]) }}">
     <input type="hidden" name="_method" value="PUT">
     {{ csrf_field() }}
     <div>

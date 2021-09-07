@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Menu;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Gate;
 class MenuController extends Controller
 {
     /**
@@ -14,7 +14,15 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::orderBy('created_at', 'desc')->get();
+        $menu_name = request()->input("menu_name");
+
+        if(empty($menu_name)) {
+            $query = Menu::query();
+        } else {
+            $query = Menu::where("menu_name", "LIKE", "{$menu_name}%");
+        }
+
+        $menus = $query->orderBy('created_at', 'desc')->paginate(5);
 
         return view('menus.index', ['menus' => $menus]);
     }
@@ -55,7 +63,7 @@ class MenuController extends Controller
      */
     public function show(Menu $theMenu)
     {
-        //
+        return view ('menus.show', [ 'theMenu' => $theMenu ]);
     }
 
     /**
@@ -66,6 +74,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $theMenu)
     {
+        Gate::authorize('isOwner', $theMenu);
         return view ('menus.edit', [ 'theMenu' => $theMenu ]);
     }
 
@@ -86,12 +95,11 @@ class MenuController extends Controller
         // var_dump($data['menu_name']);
         $theMenu->fill($data)->update();
         return redirect()->route('menu.edit', [ 'theMenu' => $theMenu ])->with('message', $data['menu_name'] . '登録成功しました！');
-
     }
 
     public function confirmDelete(Menu $theMenu)
     {
-        //
+        return view ('menus.confirmDelete', [ 'theMenu' => $theMenu ]);
     }
 
     /**
@@ -102,6 +110,8 @@ class MenuController extends Controller
      */
     public function destroy(Menu $theMenu)
     {
-        //
+        $menuName = $theMenu->menu_name;
+        $theMenu->delete();
+        return redirect()->route('menu.index')->with('message', $menuName . 'を削除しました！');
     }
 }
