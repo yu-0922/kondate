@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Menu;
+use App\Models\Menu;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 class MenuController extends Controller
@@ -47,10 +48,9 @@ class MenuController extends Controller
     {
         $data = $request->validate([
             'menu_name' => 'required',
-            'tokuchou' => 'max:500',
         ]);
         $data['user_id'] = \Auth::id();
-        // var_dump($data['menu_name']);
+        var_dump($data['menu_name']);
         Menu::create($data);
         return redirect()->route('menu.index')->with('message', $data['menu_name'] . '登録成功しました！');
     }
@@ -58,18 +58,19 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Menu  $menu
+     * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
     public function show(Menu $theMenu)
     {
         return view ('menus.show', [ 'theMenu' => $theMenu ]);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Menu  $menu
+     * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
     public function edit(Menu $theMenu)
@@ -82,14 +83,13 @@ class MenuController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Menu  $menu
+     * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Menu $theMenu)
     {
         $data = $request->validate([
             'menu_name' => 'required',
-            'tokuchou' => 'max:500',
         ]);
         $data['user_id'] = \Auth::id();
         // var_dump($data['menu_name']);
@@ -105,7 +105,7 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Menu  $menu
+     * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
     public function destroy(Menu $theMenu)
