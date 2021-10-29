@@ -64,36 +64,23 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        @php
+//         $json = json_decode('', true);
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
+// use App\Models\Menu;
+//     $array = $json['result'];
+//     for($i=0; $i<sizeof($json['result']); $i++){
+//         $menu = new Menu();
+//         $menu->recipe_category_id = 49;
+//         $menu->user_id = 1;
+//         $menu->step = '';
+//         $menu->seasoning = '';
+//         $menu->menu_name = $array[$i]['recipeTitle'];
+//         $menu->image_path = $array[$i]['foodImageUrl'];
+//         $menu->description = $array[$i]['recipeDescription'];
+//         $menu->ingredient = implode(',', $array[$i]['recipeMaterial']);
+//         $menu->save();
+//     }
+        @endphp
     </body>
 </html>

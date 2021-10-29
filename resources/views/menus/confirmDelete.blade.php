@@ -11,11 +11,39 @@
         {{ $theMenu->menu_name }}
     </div>
     <div>
-        <h3>特徴</h3>
-        {{ $theMenu->tokuchou }}
+        <h3>写真</h3>
+        {{ $theMenu->image_path }}
     </div>
     <div>
-        <button>実行</button>
+        <h3>説明</h3>
+        {{ $theMenu->description }}
+    </div>
+    <div>
+        <h3>材料</h3>
+        @foreach ((array)$datas as $key => $data)
+            {{ old('ing-name', $data) }}
+        @endforeach
+        @foreach ((array)$datas as $key => $size)
+            {{ old('ing-name.$key', $size) }}
+        @endforeach
+    </div>
+    <div>
+        <h3>手順</h3>
+        {{ $theMenu->step }}
+    </div>
+    <div>
+        <h3>カテゴリー</h3>
+        <div>
+        @foreach ($categories as $category)
+            @if(($theMenu->recipe_category_id)===$category->id)
+                {{ $category->recipe_category_name }}
+            @endif
+        @endforeach
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-secondary" value="削除">
+        <button type="button" onclick="history.back()">戻る</button>
     </div>
     </form>
 @endsection

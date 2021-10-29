@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Menu extends Model
 {
-    protected $fillable = ['menu_name', 'user_id', 'image_path', 'description', 'step', 'ingredient', 'seasoning'];
+    protected $fillable = ['menu_name', 'user_id', 'image_path', 'description', 'step', 'ingredient', 'recipe_category_id', 'menu_release', 'my_menu_register'];
 
     /**
      * メニューを登録したユーザーを取得
@@ -21,13 +21,6 @@ class Menu extends Model
      */
     public function ingredients() {
         return $this->belongsToMany('App\Models\Ingredient');
-    }
-
-    /**
-     * メニューに使われる調味料を取得
-     */
-    public function seasonings() {
-        return $this->belongsToMany('App\Models\Seasoning');
     }
 
     /**
@@ -51,7 +44,7 @@ class Menu extends Model
         return $this->hasMany('App\Models\MyMenu');
     }
 
-    public function create($categoryId, $menuName, $imagePath, $description, $step, $ingredient, $seasoning) {
+    public function create($categoryId, $menuName, $imagePath, $description, $step, $ingredient) {
         $menu = new self();
         $menu->recipe_category_id = $categoryId;
         $menu->user_id = Auth::id();
@@ -60,11 +53,10 @@ class Menu extends Model
         $menu->description = $description;
         $menu->step = $step;
         $menu->ingredient = $ingredient;
-        $menu->seasoning = $seasoning;
         $menu->save();
     }
 
-    public function edit($id, $categoryId, $menuName, $imagePath, $description, $step, $ingredient, $seasoning) {
+    public function edit($id, $categoryId, $menuName, $imagePath, $description, $step, $ingredient) {
         $menu = $this->where('id', $id)->first();
         $menu->recipe_category_id = $categoryId;
         $menu->menu_name = $menuName;
@@ -72,7 +64,6 @@ class Menu extends Model
         $menu->description = $description;
         $menu->step = $step;
         $menu->ingredient = $ingredient;
-        $menu->seasoning = $seasoning;
         $menu->save();
 
         return $menu;

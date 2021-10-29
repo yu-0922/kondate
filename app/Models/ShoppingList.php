@@ -26,11 +26,4 @@ class ShoppingList extends Model
     public function ingredients() {
         return $this->belongsToMany('App\Models\Ingredient');
     }
-
-    /**
-     * 買い物リストに入っている調味料を取得
-     */
-    public function seasonings() {
-        return $this->belongsToMany('App\Models\Seasoning');
-    }
 }

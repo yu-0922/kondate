@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
+use Facades\App\Models\Menu;
+use App\Models\Menu as AppMenu;
 use App\Models\User;
+use Facades\App\Models\RecipeCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 class MenuController extends Controller
 {
@@ -33,9 +36,10 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('menus.create');
+        $categories = RecipeCategory::get();
+        return view('menus.create', compact('categories'));
     }
 
     /**
@@ -46,13 +50,60 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'menu_name' => 'required',
+        $validatedData = $request->validate([
+            'recipe_category_id' => 'required',
+            'menu_name' => 'required|max:255',
+            // 'image_path' => 'image|file|nullable',
+            'description' => 'max:1000|nullable',
+            'ing_name.*' => 'required|max:3000',
+            'ing_size.*' => 'required|max:3000',
+            'step.*' => 'max:5000|nullable',
+            'menu_release' => 'required',
+            'my_menu_register' => 'required'
         ]);
-        $data['user_id'] = \Auth::id();
-        var_dump($data['menu_name']);
-        Menu::create($data);
-        return redirect()->route('menu.index')->with('message', $data['menu_name'] . '登録成功しました！');
+
+        $datas = $request->get('ing_name');
+        $sizes = $request->get('ing_size');
+
+        $array = [];
+        foreach($datas as $key => $data){
+            $array[] = [$data, $sizes[$key]];
+        }
+        $json = json_encode($array);
+        $ing = json_decode($json);
+        // echo "<br>";
+        // foreach($ing as $a) {
+        //     echo $a[0]."：".$a[1]."<br>";
+        // }
+
+        $steps = $request->get('step');
+
+        $ary = [];
+        foreach($steps as $key => $value){
+            $ary[] = [$value];
+        }
+        $json = json_encode($ary);
+        $stp = json_decode($json);
+        // echo "<br>";
+        // foreach($stp as $b) {
+        //     echo $b[0]."<br>";
+        // }
+
+        // $data['user_id'] = \Auth::id();
+        Menu::create(
+            $request->get('recipe_category_id'),
+            $request->get('menu_name'),
+            $request->get('image_path'),
+            $request->get('description'),
+            $request->get('ingredient'),
+            $request->get('step'),
+            $request->get('menu_release'),
+            $request->get('my_menu_register'),
+        );
+
+        Storage::putFileAs('public', $request->file('image_path'), $request->user()->id);
+
+        return redirect()->route('menu.index')->with('message', $datas['menu_name'] . 'を登録しました！');
     }
 
     /**
@@ -61,10 +112,16 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function show(Menu $theMenu)
-    {
-        return view ('menus.show', [ 'theMenu' => $theMenu ]);
 
+    public function show(Request $request, $id)
+    {
+        $datas = $request->get('ing_name');
+
+        return view ('menus.show', [
+            'theMenu' => Menu::where('id', $id)->first(),
+            'datas' => $datas,
+            'categories' => RecipeCategory::get()
+        ]);
     }
 
     /**
@@ -73,10 +130,18 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function edit(Menu $theMenu)
+    public function edit(Request $request, $datas)
     {
-        Gate::authorize('isOwner', $theMenu);
-        return view ('menus.edit', [ 'theMenu' => $theMenu ]);
+        $theMenu = Menu::find($request->id);
+
+        if(\Auth::id() == 1 || \Auth::id() == $theMenu->user_id){
+            return view ('menus.edit', [
+                'theMenu' => $theMenu ,
+                'datas' => $datas,
+                'categories' => RecipeCategory::get(),
+            ]);
+        }
+        abort(401);
     }
 
     /**
@@ -86,20 +151,42 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $theMenu)
+    public function update(Request $request, $datas)
     {
-        $data = $request->validate([
-            'menu_name' => 'required',
+        $validatedData = $request->validate([
+            'recipe_category_id' => 'required',
+            'menu_name' => 'required|max:255',
+            // 'image_path' => 'image|nullable',
+            'description' => 'max:1000|nullable',
+            'ing_name.*' => 'required|max:3000',
+            'ing_size.*' => 'required|max:3000',
+            'step.*' => 'max:5000|nullable',
+            'menu_release' => 'required',
+            'my_menu_register' => 'required'
         ]);
-        $data['user_id'] = \Auth::id();
-        // var_dump($data['menu_name']);
-        $theMenu->fill($data)->update();
-        return redirect()->route('menu.edit', [ 'theMenu' => $theMenu ])->with('message', $data['menu_name'] . '登録成功しました！');
+
+        $theMenu = Menu::edit(
+            $request->id,
+            $request->get('recipe_category_id'),
+            $request->get('menu_name'),
+            $request->get('image_path'),
+            $request->get('description'),
+            $request->get('ingredient'),
+            $request->get('step'),
+            $request->get('menu_release'),
+            $request->get('my_menu_register'),
+        );
+
+        return redirect()->route('menu.edit', [ 'theMenu' => Menu::find($request->id) ])->with('message', $datas['menu_name'] . 'を更新しました！');
     }
 
-    public function confirmDelete(Menu $theMenu)
+    public function confirmDelete(Request $request, $datas)
     {
-        return view ('menus.confirmDelete', [ 'theMenu' => $theMenu ]);
+        return view ('menus.confirmDelete', [
+            'theMenu' => Menu::find($request->id),
+            'datas' => $datas,
+            'categories' => RecipeCategory::get(),
+        ]);
     }
 
     /**
@@ -108,10 +195,13 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $theMenu)
+    public function destroy(Request $request)
     {
-        $menuName = $theMenu->menu_name;
-        $theMenu->delete();
-        return redirect()->route('menu.index')->with('message', $menuName . 'を削除しました！');
+        $theMenu = Menu::find($request->id);
+        if(\Auth::id() == 1 || \Auth::id() == $theMenu->user_id){
+            $theMenu->delete();
+            return redirect()->route('menu.index')->with('message', $theMenu->menu_name . 'を削除しました！');
+        }
+        abort(401);
     }
 }
