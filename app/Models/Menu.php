@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
 
 class Menu extends Model
 {
+    use Favoriteable;
+
     protected $fillable = ['menu_name', 'user_id', 'image_path', 'description', 'step', 'ingredient', 'recipe_category_id', 'menu_release', 'my_menu_register'];
 
     /**
@@ -33,8 +36,8 @@ class Menu extends Model
     /**
      * メニューのうちお気に入り登録されたものを取得
      */
-    public function favorite() {
-        return $this->belongsTo('App\Models\Favorite');
+    public function favorites() {
+        return $this->hasMany('App\Models\Favorite');
     }
 
     /**
@@ -44,26 +47,28 @@ class Menu extends Model
         return $this->hasMany('App\Models\MyMenu');
     }
 
-    public function create($categoryId, $menuName, $imagePath, $description, $step, $ingredient) {
+    public function create($recipe_category_id, $menu_name, $image_path, $description, $ingredient, $step, $menu_release) {
         $menu = new self();
-        $menu->recipe_category_id = $categoryId;
+        $menu->recipe_category_id = $recipe_category_id;
         $menu->user_id = Auth::id();
-        $menu->menu_name = $menuName;
-        $menu->image_path = $imagePath;
+        $menu->menu_name = $menu_name;
+        $menu->image_path = $image_path;
         $menu->description = $description;
-        $menu->step = $step;
         $menu->ingredient = $ingredient;
+        $menu->step = $step;
+        $menu->menu_release = $menu_release;
         $menu->save();
     }
 
-    public function edit($id, $categoryId, $menuName, $imagePath, $description, $step, $ingredient) {
+    public function edit($id, $recipe_category_id, $menu_name, $image_path, $description, $ingredient, $step, $menu_release) {
         $menu = $this->where('id', $id)->first();
-        $menu->recipe_category_id = $categoryId;
-        $menu->menu_name = $menuName;
-        $menu->image_path = $imagePath;
+        $menu->recipe_category_id = $recipe_category_id;
+        $menu->menu_name = $menu_name;
+        $menu->image_path = $image_path;
         $menu->description = $description;
-        $menu->step = $step;
         $menu->ingredient = $ingredient;
+        $menu->step = $step;
+        $menu->menu_release = $menu_release;
         $menu->save();
 
         return $menu;

@@ -3,7 +3,7 @@
 
 @section('content')
 <h2 class="my-5 text-center">必要な箇所を編集し更新してください</h2>
-    <div class="container text-center">
+    <div class="container text-center w-70 bg-light p-5 border border-3">
         <form method="POST" action="{{ route('menu.update', ['theMenu' => $theMenu]) }}">
         <input type="hidden" name="_method" value="PUT">
         {{ csrf_field() }}
@@ -47,40 +47,30 @@
                 @if(old("ing_name"))
                     @foreach(old("ing_name") as $key => $ing)
                     <div class="d-flex">
-                        <input type="text" class="form-control" name="ing_name[]" value="{{ $ing, isset($defaultName) ? $defaultName : '' }}">
-                        <input type="text" class="form-control" name="ing_size[]" value="{{ old("ing_size")[$key], isset($defaultSize) ? $defaultSize : '' }}">
+                        <input type="text" class="form-control" name="ing_name[]" value="{{ $ing }}">
+                        <input type="text" class="form-control" name="ing_size[]" value="{{ old("ing_size")[$key] }}">
                         <input type="button" value="削除" onclick="del(this)">
                     </div>
                     @endforeach
-                {{-- @elseif(isset($datas))
-                <div class="d-flex">
-                    @foreach ($datas as $key => $ing)
-                        <input type="text" class="form-control" name="ing_name[]" value="{{ $ing }}">
-                        <input type="text" class="form-control" name="ing_size[]" value="{{ $size }}">
-                        <input type="button" value="削除" onclick="del(this)">
-                    @endforeach
-                </div> --}}
                 @else
-                <div class="d-flex">
-                    <input type="text" class="form-control" name="ing_name[]">
-                    <input type="text" class="form-control" name="ing_size[]">
-                    <input type="button" value="削除" onclick="del(this)">
-                </div>
+                    @if(is_array(json_decode($theMenu->ingredient, true)))
+                        @foreach (json_decode($theMenu->ingredient, true) as $key => $value)
+                        <div class="d-flex">
+                            <input type="text" class="form-control" name="ing_name[]" value="{{ $value[0] }}">
+                            <input type="text" class="form-control" name="ing_size[]" value="{{ $value[1] }}">
+                            <input type="button" value="削除" onclick="del(this)">
+                        </div>
+                        @endforeach
+                    @else
+                    <div class="d-flex">
+                        <input type="text" class="form-control" name="ing_name[]">
+                        <input type="text" class="form-control" name="ing_size[]">
+                        <input type="button" value="削除" onclick="del(this)">
+                    </div>
+                    @endif
                 @endif
             </div>
             </label>
-
-            {{--
-                    @foreach ((array)$datas as $key => $data)
-                        <input type="text" class="form-control" id="inputIngredient" name="ing-name-[{{ $key }}]" value="{{ old('ing-name-.$key', $data) }}">
-                    @endforeach
-                    @foreach ((array)$datas as $key => $size)
-                        <input type="text" class="form-control" id="inputIngredient" name="ing-size-[{{ $key }}]" value="{{ old('ing-name-.$key', $size) }}">
-                    @endforeach
-                    <input type="button" value="削除" onclick="del(this)">
-                </div>
-            </div>
-            </label> --}}
         </div>
         <div id="input_pluralBox2" class="form-group">
             @error('step.*')
@@ -97,10 +87,19 @@
                 </div>
                 @endforeach
             @else
-            <div class="d-flex">
-                <input type="text" class="form-control" id="inputStep" name="step[]">
-                <input type="button" value="削除" onclick="del(this)">
-            </div>
+                @if(is_array(json_decode($theMenu->step, true)))
+                    @foreach (json_decode($theMenu->step, true) as $key => $value)
+                    <div class="d-flex">
+                        <input type="text" class="form-control" name="ing_name[]" value="{{ $value[0] }}">
+                        <input type="button" value="削除" onclick="del(this)">
+                    </div>
+                    @endforeach
+                @else
+                    <div class="d-flex">
+                        <input type="text" class="form-control" id="inputStep" name="step[]">
+                        <input type="button" value="削除" onclick="del(this)">
+                    </div>
+                @endif
             @endif
             </div>
             </label>
@@ -127,29 +126,14 @@
                 <label for="radioRelease1" class="form-check-label">投稿しない</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" name="menu_release" class="form-check-input" id="radioRelease2" value="投稿する" {{ old ('menu_release') == '投稿する' ? 'checked' : '' }}>
+                <input type="radio" name="menu_release" class="form-check-input" id="radioRelease2" value="投稿する" {{ old ('menu_release', $theMenu->menu_release) == '投稿する' ? 'checked' : '' }}>
                 <label for="radioRelease2" class="form-check-label">投稿する</label>
             </div>
             </label>
         </div>
-        <div class="form-group">
-            @error('my_menu_register')
-            <span class="input-error">{{ $message }}</span>
-            @enderror
-            <label class="col-md-6 text-left">{{ __('マイメニュー登録') }}<span class="badge badge-danger mr-3 mt-1 ml-1 h-50">{{ __('必須') }}</span>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="my_menu_register"  class="form-check-input" id="radioRegister1" value="登録しない" {{ old ('my_menu_register', $theMenu->my_menu_register) == '登録しない' ? 'checked' : '' }}>
-                <label for="radioRegister1" class="form-check-label">登録しない</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="my_menu_register" class="form-check-input" id="radioRegister2" value="登録する" {{ old ('my_menu_register') == '登録する' ? 'checked' : '' }}>
-                <label for="radioRegister2" class="form-check-label">登録する</label>
-            </div>
-            </label>
-        </div>
         <div class="text-center form-group mb-5">
-            <input type="submit" class="btn btn-secondary" value="更新">
-            <button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button>
+            <input type="submit" class="btn btn-outline-dark" value="更新">
+            <button type="button" class="btn btn-outline-dark" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
         </div>
         </form>
     </div>
