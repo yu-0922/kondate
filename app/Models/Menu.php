@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Overtrue\LaravelFavorite\Traits\Favoriteable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
 {
     use Favoriteable;
+    use SoftDeletes;
 
     protected $fillable = ['menu_name', 'user_id', 'image_path', 'description', 'step', 'ingredient', 'recipe_category_id', 'menu_release', 'my_menu_register'];
 
