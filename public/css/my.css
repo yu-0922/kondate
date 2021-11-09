@@ -2,11 +2,11 @@ header {
     background-color: #fac27d;
 }
 
-footer {
+.footer {
     background-color: #fac27d;
     color: seagreen;
     padding: 2em 0;
-    margin-top: 10px;
+    margin-top: auto;
     text-align: center;
 }
 
@@ -40,13 +40,6 @@ footer {
     text-decoration: none;
 }
 
-.search-area {
-    text-align: right;
-}
-
-.search-form {
-    margin-bottom: 10px;
-}
 /*# sourceMappingURL=my.css.map */
 
 #input_plural {
@@ -63,5 +56,190 @@ footer {
 }
 
 .menu-name {
-    font-size: 1.5rem;
+    color: #555;
+}
+
+.stitch {
+    padding: 0.5em;
+    margin: 1em auto;
+    width: 100%;
+    color: #493311;
+    background: #fac27d;
+    box-shadow: 0px 0px 0px 10px #fac27d;
+    border: 2px dashed #fff;
+}
+
+.side-line h3 {
+    margin: 0;
+}
+
+.side-border {
+    padding: 0.5em 1em;
+    border-left: solid 10px #fac27d;
+}
+
+/* 開くボタン */
+.button-open {
+    display: block;
+    margin-left: auto;
+    padding: 0.5em;
+    background-color: #fff;
+    color: #493311;
+    border-radius: 20rem;
+    cursor: pointer;
+    min-width: 20%;
+    max-width: 40%;
+}
+
+.button-open:hover {
+    display: block;
+    margin-left: auto;
+    padding: 0.5em;
+    background-color: #fdca7d;
+    color: #493311;
+    border-radius: 20rem;
+    min-width: 20%;
+    max-width: 40%;
+}
+  /* モーダルウィンドウ */
+.modal-window {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background-color: #dfdddd;
+    border-radius: 5px;
+    z-index: 11;
+    padding: 2rem;
+}
+
+  /* 登録ボタン */
+.button-register {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10rem;
+    padding: 0.5em;
+    background-color: #fff;
+    color: #493311;
+    border-radius: 20rem;
+    cursor: pointer;
+}
+
+.button-register:hover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10rem;
+    padding: 0.5em;
+    background-color: #fac27d;
+    color: #493311;
+    border-radius: 20rem;
+}
+
+  /* 閉じるボタン */
+.button-close {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10rem;
+    padding: 0.5em;
+    background-color: #fff;
+    color: #493311;
+    border-radius: 20rem;
+    cursor: pointer;
+}
+
+.button-close:hover {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10rem;
+    padding: 0.5em;
+    background-color: #fac27d;
+    color: #493311;
+    border-radius: 20rem;
+}
+
+  /* オーバーレイ */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+/* お気に入り登録 */
+.favorite-button {
+    border-radius: 5%;
+    border: solid 1px #493311;
+    background-color: #fcfcfc;
+    color: #493311;
+}
+
+.favorite-button:hover {
+    border-radius: 5%;
+    border: solid 1px #493311;
+    background-color: #fac27d;
+    color: #493311;
+}
+
+.favorited-button {
+    border-radius: 5%;
+    border: solid 1px #493311;
+    background-color: #fac27d;
+    color: #493311;
+}
+
+.favorited-button:hover {
+    border-radius: 5%;
+    border: solid 1px #493311;
+    background-color: #fcfcfc;
+    color: #493311;
+}
+
+/* Media Queries 769px以上 デスクトップ用*/
+@media screen and (min-width:769px){
+    .pc {
+
+    }
+
+    .sp {
+        display: none;
+    }
+}
+
+/* Media Queries 768px以下 スマホ用*/
+@media screen and (max-width:768px){
+    .pc {
+        display: none;
+    }
+
+    .sp {
+
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
 }
