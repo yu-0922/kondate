@@ -113,7 +113,7 @@
             </label>
         </div>
         <div class="text-center form-group mb-5">
-            <input type="submit" class="btn btn-outline-dark" value="登録">
+            <input type="submit" class="btn btn-outline-dark mr-3" value="登録">
             <button type="button" class="btn btn-outline-dark" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
         </div>
     </form>
