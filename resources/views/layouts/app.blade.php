@@ -25,9 +25,8 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <form method="GET" action="{{ route('menu.index') }}">
-                        @csrf
                             <div class="d-flex align-items-center">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="menu_name">
                                 <button class="btn btn-dark my-2 ml-1" type="submit">検索</button>
                             </div>
                         </form>
