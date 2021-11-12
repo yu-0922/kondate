@@ -13,7 +13,7 @@ class RecipeCategory extends Model
     /**
      * メニューを取得
      */
-    public function menu() {
+    public function menus() {
         return $this->hasMany('App\Models\Menu');
     }
 }

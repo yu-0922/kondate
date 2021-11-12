@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Facades\App\Models\Menu;
-use Facades\App\Models\RecipeCategory;
+use App\Models\Menu;
+use App\Models\RecipeCategory;
 
 class RecipeCategoryController extends Controller
 {
@@ -15,10 +15,9 @@ class RecipeCategoryController extends Controller
      */
     public function index()
     {
-        $categories = RecipeCategory::get();
-        $menus = Menu::get();
+        $categories = RecipeCategory::orderBy('created_at', 'desc')->get();
 
-        return view('categories.index', ['categories' => $categories, 'menus' => $menus]);
+        return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -50,7 +49,11 @@ class RecipeCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $categories = RecipeCategory::where('id', $id)->orderBy('created_at', 'desc')->get();
+
+        return view('categories.show', [
+            'categories' => $categories,
+            'menus' => Menu::where('recipe_category_id', $id)->paginate(10)]);
     }
 
     /**
