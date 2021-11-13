@@ -41,7 +41,7 @@
             <span class="input-error">{{ $message }}</span>
             @enderror
             <label for="inputIngredient" class="col-md-6 text-left">{{ __('材料') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span>
-                <a onclick=add() class="btn btn-sm btn-outline-dark ml-1">＋材料を追加する</a>
+                <button type="button" onclick="add()" class="btn btn-sm btn-outline-dark ml-1">＋材料を追加する</button>
                 <p class="my-1">※左の入力欄に「材料名」、右の入力欄に「量」を記載してください。</p>
                 <div id="input_plural">
                     @if(old("ing_name"))
@@ -67,7 +67,7 @@
             <span class="input-error">{{ $message }}</span>
             @enderror
             <label for="inputStep" class="col-md-6 text-left">{{ __('手順') }}
-                <a onclick=addStep() class="btn btn-sm btn-outline-dark mb-2 ml-1">＋手順を追加する</a>
+                <button type="button" onclick="addStep()" class="btn btn-sm btn-outline-dark mb-2 ml-1">＋手順を追加する</button>
                 <div id="input_plural2">
                     @if(old("step"))
                     @foreach(old("step") as $key => $stp)
