@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use Facades\App\Models\Menu;
 use Facades\App\Models\MyMenu;
-use App\Models\Menu as AppMenu;
 use App\Models\User;
 use Facades\App\Models\RecipeCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Facades\App\Models\Favorite;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
@@ -30,8 +28,6 @@ class MenuController extends Controller
         } else {
             $query = Menu::where("menu_name", "LIKE", "%$menu_name%");
         }
-
-        Carbon::now();
 
         $menus = $query->orderBy('created_at', 'desc')->paginate(10);
 

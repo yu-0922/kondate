@@ -108,8 +108,8 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 500px;
     background-color: #dfdddd;
     border-radius: 5px;
     z-index: 11;
@@ -119,10 +119,10 @@ header {
   /* 登録ボタン */
 .button-register {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 10rem;
+    width: 8rem;
     padding: 0.5em;
     background-color: #fff;
     color: #493311;
@@ -132,10 +132,10 @@ header {
 
 .button-register:hover {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 10rem;
+    width: 8rem;
     padding: 0.5em;
     background-color: #fac27d;
     color: #493311;
@@ -148,7 +148,7 @@ header {
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 10rem;
+    width: 8rem;
     padding: 0.5em;
     background-color: #fff;
     color: #493311;
@@ -225,6 +225,12 @@ header {
 
 .category-name {
     color: #555;;
+    display: block;
+    width: 100%;
+}
+
+.category-name:hover {
+    color: rgb(122, 122, 122);;
 }
 
 /* Media Queries 769px以上 デスクトップ用*/
@@ -242,7 +248,7 @@ header {
     }
 
     h2 {
-        font-size: 1.6rem;
+        font-size: 1rem;
     }
 
     h3 {
