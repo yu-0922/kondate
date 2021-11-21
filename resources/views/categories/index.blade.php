@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-8 offset-md-2 slide-in">
             <div class="bg-light p-5 border border-3">
             @foreach ($categories as $category)
             <ul class="list-unstyled category-list">

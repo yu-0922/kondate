@@ -2,8 +2,8 @@
 @section('title', 'メニュー削除画面')
 
 @section('content')
-    <div class="container text-center w-60 bg-light p-5 border border-3">
-        <h2 class="mb-5">以下のメニューを削除してよろしいですか？</h2>
+<h2 class="mb-5 text-center zoom">以下のメニューを削除してよろしいですか？</h2>
+    <div class="container text-center w-60 bg-light p-5 border border-3 slide-in">
         <form method="POST" action="{{ route('menu.destroy', ['theMenu' => $theMenu]) }}">
         <input type="hidden" name="_method" value="DELETE">
         {{ csrf_field() }}

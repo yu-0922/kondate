@@ -19,13 +19,13 @@
                 <div class="row justify-content-around">
                     <div class="d-flex align-items-center">
                     <a href={{ route('menu.index') }}>
-                        <img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf.png') }}" class="img-fluid">
-                        <img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf2.png') }}" class="img-fluid">
+                        <img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf.png') }}" class="img-fluid slide-in">
+                        <img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf2.png') }}" class="img-fluid slide-in">
                     </a>
                     </div>
                     <div class="d-flex align-items-center">
                         <form method="GET" action="{{ route('menu.index') }}">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center slide-in">
                                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="menu_name">
                                 <button class="btn btn-dark my-2 ml-1" type="submit">検索</button>
                             </div>
@@ -65,7 +65,7 @@
             </div>
             @endif
 
-            <h1 class="text-center my-5">@yield('title')</h1>
+            <h1 class="text-center my-5 zoom">@yield('title')</h1>
             <div class="container">
                 @yield('content')
             </div>

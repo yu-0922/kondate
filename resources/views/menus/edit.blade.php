@@ -2,8 +2,8 @@
 @section('title', 'メニュー編集')
 
 @section('content')
-<h2 class="my-5 text-center">必要な箇所を編集し更新してください</h2>
-    <div class="container text-center w-70 bg-light p-5 border border-3">
+<h2 class="my-5 text-center zoom">必要な箇所を編集し更新してください</h2>
+    <div class="container text-center w-70 bg-light p-5 border border-3 slide-in">
         <form method="POST" action="{{ route('menu.update', ['theMenu' => $theMenu]) }}">
         <input type="hidden" name="_method" value="PUT">
         {{ csrf_field() }}
