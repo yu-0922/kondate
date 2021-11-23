@@ -43,7 +43,7 @@
                                         お気に入り解除
                                     </a>
                                 @else
-                                    <a href="/menus/{{ $menu->id }}/favorite" class="btn btn-sm favorite-button">
+                                    <a href="/menus/{{ $menu->id }}/favorite" class="btn btn-sm favorite-button slide-in">
                                         <i class="fa fa-heart"></i>
                                         お気に入りに追加
                                     </a>

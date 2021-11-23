@@ -90,7 +90,7 @@
                 @if(is_array(json_decode($theMenu->step, true)))
                     @foreach (json_decode($theMenu->step, true) as $key => $value)
                     <div class="d-flex">
-                        <input type="text" class="form-control" name="ing_name[]" value="{{ $value[0] }}">
+                        <input type="text" class="form-control" name="step[]" value="{{ $value[0] }}">
                         <input type="button" value="削除" onclick="del(this)">
                     </div>
                     @endforeach

@@ -55,7 +55,6 @@ class HomeController extends Controller
         }
 
         $favorites = Auth::user()->favorites(Menu::class)->get('menu_id');
-        // dd($favorites);
 
         return view('home', [
             'week_names' => $week_names,
@@ -66,5 +65,4 @@ class HomeController extends Controller
             'favorites' => $favorites,
         ]);
     }
-
 }
