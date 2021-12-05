@@ -2,14 +2,6 @@ header {
     background-color: #fac27d;
 }
 
-.footer {
-    background-color: #fac27d;
-    color: seagreen;
-    padding: 2em 0;
-    margin-top: auto;
-    text-align: center;
-}
-
 .zoom {
     animation: zoom 2s;
 }
@@ -278,6 +270,20 @@ header {
 
 .category-name:hover {
     color: rgb(122, 122, 122);;
+}
+
+.footer {
+    background-color: #fac27d;
+    color: seagreen;
+    padding: 2em 0;
+    margin-top: auto;
+    text-align: center;
+}
+
+.footer-nav {
+    background-color: #fac27d;
+    color: #555;
+    text-align: center;
 }
 
 /* Media Queries 769px以上 デスクトップ用*/

@@ -34,7 +34,7 @@
                 </div>
             </div>
         </header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light slide-in">
             <a class="navbar-brand" href="{{ route('top') }}">Top</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -42,13 +42,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li><a class="nav-link" href="{{ route('menu.index') }}">メニュー一覧</a></li>
-                <li><a class="nav-link" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
                 <li><a class="nav-link" href="{{ route('category.index') }}">カテゴリ一覧</a></li>
                 @if (!\Auth::user())
                 <li><a class="nav-link" href="{{ route('register') }}">会員登録</a></li>
                 <li><a class="nav-link" href="{{ route('login') }}">ログイン</a></li>
                 @else
-                <li><a class="nav-link" href="{{ route('home') }}">マイページ</a></li>
+                <li><a class="nav-link" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
+                <li><a class="nav-link" href="{{ route('recipe.create') }}">カレンダー登録</a></li>
+                <li><a class="nav-link" href="{{ route('home.show') }}">マイページ</a></li>
                 <li><a class="nav-link" href="{{ route('logout') }}">ログアウト</a></li>
                 @endif
             </ul>
@@ -73,13 +74,28 @@
         <!----- メインコンテンツ END ----->
 
         <!----- フッター ----->
-        <div class="footer mt-auto py-3">&copy; 2021 yusuke all rights reserved.</div>
+        <div>
+            <ul class="navbar-nav">
+                <li><a class="nav-link footer-nav pt-3" href="{{ route('menu.index') }}">メニュー一覧</a></li>
+                <li><a class="nav-link footer-nav" href="{{ route('category.index') }}">カテゴリ一覧</a></li>
+                @if (!\Auth::user())
+                <li><a class="nav-link footer-nav" href="{{ route('register') }}">会員登録</a></li>
+                <li><a class="nav-link footer-nav" href="{{ route('login') }}">ログイン</a></li>
+                @else
+                <li><a class="nav-link footer-nav" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
+                <li><a class="nav-link footer-nav" href="{{ route('recipe.create') }}">カレンダー登録</a></li>
+                <li><a class="nav-link footer-nav" href="{{ route('home.show') }}">マイページ</a></li>
+                <li><a class="nav-link footer-nav" href="{{ route('logout') }}">ログアウト</a></li>
+                @endif
+            </ul>
+            <div class="footer mt-auto py-3">&copy; 2021 yusuke all rights reserved.</div>
+        </div>
         <!----- フッター END ----->
-        <script src="{{ asset('js/app.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
         <script src="{{ asset('js/bubbly-bg.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

@@ -31,6 +31,16 @@ Route::group(
         Route::get('/menus/{id}/edit', 'MenuController@edit')->name('menu.edit');
         Route::get('/menus/{id}/delete', 'MenuController@confirmDelete')->name('menu.confirmDelete');
         Route::delete('/menus/{id}', 'MenuController@destroy')->name('menu.destroy');
+
+        Route::get('/recipes/create', 'RecipeController@create')->name('recipe.create');
+        Route::post('/home', 'RecipeController@store')->name('recipe.store');
+        Route::put('/recipes/{id}', 'RecipeController@update')->name('recipe.update');
+        Route::get('/recipes/{id}/edit', 'RecipeController@edit')->name('recipe.edit');
+        Route::delete('/home', 'RecipeController@destroy')->name('recipe.destroy');
+
+        Route::get('/lists', 'ShoppingListController@index')->name('list.index');
+
+        Route::get('/home', 'HomeController@show')->name('home.show');
     }
 );
 
@@ -40,6 +50,6 @@ Route::get('/menus/{id}', 'MenuController@show')->name('menu.show');
 Route::get('/categories', 'RecipeCategoryController@index')->name('category.index');
 Route::get('/categories/{id}', 'RecipeCategoryController@show')->name('category.show');
 
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
