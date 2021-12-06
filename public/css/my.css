@@ -220,28 +220,28 @@ header {
 }
 
 /* お気に入り登録 */
-.favorite-button {
+.original-button {
     border-radius: 5%;
     border: solid 1px #493311;
     background-color: #fcfcfc;
     color: #493311;
 }
 
-.favorite-button:hover {
+.original-button:hover {
     border-radius: 5%;
     border: solid 1px #493311;
     background-color: #fac27d;
     color: #493311;
 }
 
-.favorited-button {
+.original-button {
     border-radius: 5%;
     border: solid 1px #493311;
     background-color: #fac27d;
     color: #493311;
 }
 
-.favorited-button:hover {
+.original-button:hover {
     border-radius: 5%;
     border: solid 1px #493311;
     background-color: #fcfcfc;

@@ -6,8 +6,10 @@
 <div id="overlay" class="overlay"></div>
 <!-- モーダルウィンドウ -->
 <!-- 開くボタン -->
-<a class="js-open button-open slide-in">カレンダー登録</a>
-<div class="modal-window">
+<div class="text-right">
+    <a class="btn original-button slide-in" href="{{ route('recipe.create') }}">カレンダー登録</a>
+</div>
+{{-- <div class="modal-window">
     <form method="POST" action="{{ route('menu.store') }}">
     {{ csrf_field() }}
     <label for="create-date" class="col-md-12 text-left">{{ __('作成日') }}
@@ -31,18 +33,18 @@
     </label>
     <div class="text-center form-group mb-5">
         <input type="submit" class="button-register" value="登録">
-    </div>
+    </div> --}}
 <!-- 閉じるボタン -->
-    <button class="js-close button-close">Close</button>
-</div>
+    {{-- <button class="js-close button-close">Close</button>
+</div> --}}
 <div class="my-3 text-right">
     @if($theMenu->favorites()->where('user_id', Auth::id())->first())
-        <a href="/menus/{{ $theMenu->id }}/favorite" class="btn favorited-button mt-2 slide-in">
+        <a href="/menus/{{ $theMenu->id }}/favorite" class="btn original-button mt-2 slide-in">
             <i class="fa fa-heart"></i>
             お気に入り解除
         </a>
     @else
-        <a href="/menus/{{ $theMenu->id }}/favorite" class="btn favorite-button mt-2 slide-in">
+        <a href="/menus/{{ $theMenu->id }}/favorite" class="btn original-button mt-2 slide-in">
             <i class="fa fa-heart"></i>
             お気に入りに追加
         </a>
