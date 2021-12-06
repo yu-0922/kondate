@@ -234,14 +234,14 @@ header {
     color: #493311;
 }
 
-.original-button {
+.r-original-button {
     border-radius: 5%;
     border: solid 1px #493311;
     background-color: #fac27d;
     color: #493311;
 }
 
-.original-button:hover {
+.r-original-button:hover {
     border-radius: 5%;
     border: solid 1px #493311;
     background-color: #fcfcfc;

@@ -43,7 +43,7 @@
                             </a>
                             <div class="mb-1">
                                 @if($menu->favorites()->where('user_id', Auth::id())->first())
-                                    <a href="/menus/{{ $menu->id }}/favorite" class="btn btn-sm original-button slide-in slide-in">
+                                    <a href="/menus/{{ $menu->id }}/favorite" class="btn btn-sm r-original-button slide-in">
                                         <i class="fa fa-heart"></i>
                                         お気に入り解除
                                     </a>
