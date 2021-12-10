@@ -31,29 +31,34 @@
                             </div>
                         </form>
                     </div>
+                    <div class="d-flex align-items-center slide-in">
+                        <ul class="navbar-nav">
+                            @if (!\Auth::user())
+                            <li><a style="color:black" href="{{ route('register') }}">会員登録</a></li>
+                            <li><a style="color:black" href="{{ route('login') }}">ログイン</a></li>
+                            @else
+                            <li><a style="color:black" href="{{ route('logout') }}">ログアウト</a></li>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light slide-in">
+        {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light slide-in">
             <a class="navbar-brand" href="{{ route('top') }}">Top</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li><a class="nav-link" href="{{ route('menu.index') }}">メニュー一覧</a></li>
-                <li><a class="nav-link" href="{{ route('category.index') }}">カテゴリ一覧</a></li>
                 @if (!\Auth::user())
                 <li><a class="nav-link" href="{{ route('register') }}">会員登録</a></li>
                 <li><a class="nav-link" href="{{ route('login') }}">ログイン</a></li>
                 @else
-                <li><a class="nav-link" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
-                <li><a class="nav-link" href="{{ route('recipe.create') }}">カレンダー登録</a></li>
-                <li><a class="nav-link" href="{{ route('home.show') }}">マイページ</a></li>
                 <li><a class="nav-link" href="{{ route('logout') }}">ログアウト</a></li>
                 @endif
             </ul>
-        </nav>
+        </nav> --}}
         <!----- ヘッダー END ----->
 
         <!----- メインコンテンツ ----->
@@ -66,7 +71,7 @@
             </div>
             @endif
 
-            <h1 class="text-center my-5 zoom">@yield('title')</h1>
+            <h1 class="text-center mt-3 my-0 slide-in">@yield('title')</h1>
             <div class="container">
                 @yield('content')
             </div>
@@ -76,15 +81,12 @@
         <!----- フッター ----->
         <div>
             <ul class="navbar-nav">
-                <li><a class="nav-link footer-nav pt-3" href="{{ route('menu.index') }}">メニュー一覧</a></li>
-                <li><a class="nav-link footer-nav" href="{{ route('category.index') }}">カテゴリ一覧</a></li>
                 @if (!\Auth::user())
                 <li><a class="nav-link footer-nav" href="{{ route('register') }}">会員登録</a></li>
                 <li><a class="nav-link footer-nav" href="{{ route('login') }}">ログイン</a></li>
                 @else
                 <li><a class="nav-link footer-nav" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
-                <li><a class="nav-link footer-nav" href="{{ route('recipe.create') }}">カレンダー登録</a></li>
-                <li><a class="nav-link footer-nav" href="{{ route('home.show') }}">マイページ</a></li>
+                {{-- <li><a class="nav-link footer-nav" href="{{ route('home') }}">マイページ</a></li> --}}
                 <li><a class="nav-link footer-nav" href="{{ route('logout') }}">ログアウト</a></li>
                 @endif
             </ul>
