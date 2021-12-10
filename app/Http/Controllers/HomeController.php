@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\RecipeCategory;
+use Facades\App\Models\Recipe;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -17,6 +19,55 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    // public function index()
+    // {
+    //     $categories = RecipeCategory::orderBy('created_at', 'desc')->get();
+
+    //     return view('home', ['categories' => $categories]);
+    // }
+
+
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        // $r_day = $request->get('d');
+        $menus = Menu::paginate(15);
+        return view('recipes.create',[
+            'menus' => $menus,
+            // 'r_day' => $r_day
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'cooking_day' => 'required|date',
+            'recipe_time' => 'required',
+            'menu_id' => 'max:255',
+        ]);
+
+        $cooking_day = $request->get('cooking_day');
+        $recipe_time = $request->get('recipe_time');
+        $menu_id = $request->get('menu_id');
+
+        Recipe::create(
+            $cooking_day,
+            $recipe_time,
+            $menu_id
+        );
+
+        return redirect()->route('home.store', [
+            'cooking_day' => $cooking_day,
+            'recipe_time' => $recipe_time,
+            'menu_id' => $menu_id
+        ]);
+
     }
 
     /**
@@ -53,15 +104,29 @@ class HomeController extends Controller
         for($i=0; $i<=6; $i++) {
             $date = [];
             $text = $carbon->month. "月". $carbon->day. "日";
-            if($carbon->year == $year && $carbon->month == $month && $carbon->day == $day)
-                $text .= "\n[今日]";
-            $date[] = $carbon->year. '-'. $carbon->month. "-". $carbon->day;
+            // if($carbon->year == $year && $carbon->month == $month && $carbon->day == $day)
+            //     $text .= "\n[今日]";
+            $today = $year. "-". $month. "-". $day;
+            $d = $carbon->year. '-'. $carbon->month. "-". $carbon->day;
+            $date[] = $d;
             $date[] = $text;
+            $date[] = \App\Models\Recipe::where('cooking_day', $d)->get();
             $carbon->addDay();
             $w_day[] = $date;
         }
 
-        $favorites = Auth::user()->favorites(Menu::class)->get('menu_id');
+        $categories = RecipeCategory::orderBy('created_at', 'desc')->get();
+
+        $menu_name = $request->get("menu_name");
+        //requestから取得したmenu_nameが空なら全てのメニューを表示、空でなければ該当の者を表示
+        if (empty($menu_name)) {
+            $query = Menu::query();
+        } else {
+            $query = Menu::where("menu_name", "LIKE", "%$menu_name%");
+        }
+        //新しい順に並び替え、1ページあたり10件表示
+        $menus = $query->orderBy('created_at', 'desc')->paginate(20);
+
 
         return view('home', [
             'week_names' => $week_names,
@@ -69,7 +134,17 @@ class HomeController extends Controller
             'before' => $before,
             'after' => $after,
             'w_day' => $w_day,
-            'favorites' => $favorites,
+            'today' => $today,
+            'categories' => $categories,
+            'menus' => $menus
         ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $recipe = Recipe::find($request->id);
+        $recipe->delete();
+
+        return redirect()->route('home');
     }
 }

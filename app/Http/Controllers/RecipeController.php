@@ -26,11 +26,11 @@ class RecipeController extends Controller
     public function create(Request $request)
     {
         // $r_day = $request->get('d');
-        $menus = Menu::paginate(15);
-        return view('recipes.create',[
-            'menus' => $menus,
-            // 'r_day' => $r_day
-        ]);
+        // $menus = Menu::paginate(15);
+        // return view('recipes.create',[
+        //     'menus' => $menus,
+        //     'r_day' => $r_day
+        // ]);
     }
 
     /**
@@ -41,27 +41,27 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'cooking_day' => 'required|date',
-            'recipe_time' => 'required',
-            'menu_id' => 'max:255',
-        ]);
+        // $request->validate([
+        //     'cooking_day' => 'required|date',
+        //     'recipe_time' => 'required',
+        //     'menu_id' => 'max:255',
+        // ]);
 
-        $cooking_day = $request->get('cooking_day');
-        $recipe_time = $request->get('recipe_time');
-        $menu_id = $request->get('menu_id');
+        // $cooking_day = $request->get('cooking_day');
+        // $recipe_time = $request->get('recipe_time');
+        // $menu_id = $request->get('menu_id');
 
-        Recipe::create(
-            $cooking_day,
-            $recipe_time,
-            $menu_id
-        );
+        // Recipe::create(
+        //     $cooking_day,
+        //     $recipe_time,
+        //     $menu_id
+        // );
 
-        return redirect()->route('recipe.store', [
-            'cooking_day' => $cooking_day,
-            'recipe_time' => $recipe_time,
-            'menu_id' => $menu_id
-        ]);
+        // return redirect()->route('recipe.store', [
+        //     'cooking_day' => $cooking_day,
+        //     'recipe_time' => $recipe_time,
+        //     'menu_id' => $menu_id
+        // ]);
     }
 
     /**
