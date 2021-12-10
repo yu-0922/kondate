@@ -7,12 +7,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Overtrue\LaravelFavorite\Traits\Favoriter;
 
 
 class User extends Authenticatable
 {
-    use Notifiable, Favoriter;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -46,13 +45,6 @@ class User extends Authenticatable
      */
     public function menus() {
         return $this->hasMany('App\Models\Menu');
-    }
-
-    /**
-     * ユーザーのお気に入りを取得
-     */
-    public function favorites() {
-        return $this->hasMany('App\Models\Favorite');
     }
 
     /**

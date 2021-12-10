@@ -9,7 +9,6 @@ use Facades\App\Models\RecipeCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Facades\App\Models\Favorite;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 class MenuController extends Controller
@@ -33,19 +32,6 @@ class MenuController extends Controller
         //menusディレクトリのindex.blade.phpファイルに$menusを返す
         return view('menus.index', ['menus' => $menus]);
     }
-
-    public function favorite($id)
-    {
-        //
-        if ($f = Auth::user()->favorites()->where('menu_id', $id)->first()) {
-            $f->delete();
-        } else {
-            Favorite::add($id);
-        }
-
-        return redirect()->route('menu.show', ['theMenu' => $id]);
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -78,7 +64,6 @@ class MenuController extends Controller
             'ing_size.*' => 'required|max:3000',
             'step.*' => 'max:5000|nullable',
             'menu_release' => 'required',
-            'my_menu_register' => 'required'
         ]);
         //材料の名前と量を取得して配列にする
         $datas = $request->get('ing_name');
@@ -172,7 +157,6 @@ class MenuController extends Controller
             'ing_size.*' => 'required|max:3000',
             'step.*' => 'max:5000|nullable',
             'menu_release' => 'required',
-            'my_menu_register' => 'required'
         ]);
 
         $datas = $request->get('ing_name');
@@ -204,7 +188,7 @@ class MenuController extends Controller
             $request->get('menu_release'),
         );
 
-        return redirect()->route('menu.edit', [ 'theMenu' => Menu::find($request->id) ])->with('message', $datas['menu_name'] . 'を更新しました！');
+        return redirect()->route('menu.edit', [ 'theMenu' => Menu::find($request->id) ])->with('message', $validatedData['menu_name'] . 'を更新しました！');
     }
 
     public function confirmDelete(Request $request, $datas)

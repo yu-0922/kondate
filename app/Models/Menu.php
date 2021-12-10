@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Overtrue\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
 {
-    use Favoriteable;
     use SoftDeletes;
 
     //指定したカラムにデータの挿入を許可する
@@ -34,13 +32,6 @@ class Menu extends Model
      */
     public function recipeCategory() {
         return $this->belongsTo('App\Models\RecipeCategory');
-    }
-
-    /**
-     * メニューのうちお気に入り登録されたものを取得
-     */
-    public function favorites() {
-        return $this->hasMany('App\Models\Favorite');
     }
 
     /**

@@ -36,19 +36,6 @@
                                 @else
                                     <p class="text-truncate mb-1 slide-in" style="max-width:175px; color:#555;">{{ $menu->ingredient }}</p>
                                 @endif
-                            <div class="mb-1">
-                                @if($menu->favorites()->where('user_id', Auth::id())->first())
-                                    <a href="/menus/{{ $menu->id }}/favorite" class="btn btn-sm r-original-button slide-in">
-                                        <i class="fa fa-heart"></i>
-                                        お気に入り解除
-                                    </a>
-                                @else
-                                    <a href="/menus/{{ $menu->id }}/favorite" class="btn btn-sm original-button slide-in">
-                                        <i class="fa fa-heart"></i>
-                                        お気に入りに追加
-                                    </a>
-                                @endif
-                            </div>
                             <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('menu.show', ['theMenu' => $menu]) }}"><i class="fab fa-elementor pr-1"></i>詳細</a>
                             @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 1)
                             <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('menu.edit', ['theMenu' => $menu]) }}"><i class="fas fa-wrench pr-1"></i>編集</a>
