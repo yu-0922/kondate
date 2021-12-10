@@ -9,35 +9,7 @@
 <div class="text-right">
     <a class="btn original-button slide-in" href="{{ route('recipe.create') }}">カレンダー登録</a>
 </div>
-{{-- <div class="modal-window">
-    <form method="POST" action="{{ route('menu.store') }}">
-    {{ csrf_field() }}
-    <label for="create-date" class="col-md-12 text-left">{{ __('作成日') }}
-        <div class="form-group text-center">
-            <input type="date" name="cooking_day" id="date">
-        </div>
-        <div class="form-group text-center">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" name="morning_recipe" class="form-check-input" id="radioRecipe1" value="{{ $theMenu->menu_name }}" {{ old ('morning_recipe') == '朝' ? 'checked' : '' }} checked>
-                <label for="checkRecipe1" class="form-check-label">朝</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="checkbox" name="luncu_recipe" class="form-check-input" id="radioRecipe1" value="{{ $theMenu->menu_name }}" {{ old ('lunch_recipe') == '昼' ? 'checked' : '' }}>
-                <label for="checkRecipe1" class="form-check-label">昼</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="checkbox" name="dinner_recipe" class="form-check-input" id="radioRecipe1" value="{{ $theMenu->menu_name }}" {{ old ('dinner_recipe') == '夜' ? 'checked' : '' }}>
-                <label for="checkRecipe1" class="form-check-label">夜</label>
-            </div>
-        </div>
-    </label>
-    <div class="text-center form-group mb-5">
-        <input type="submit" class="button-register" value="登録">
-    </div> --}}
-<!-- 閉じるボタン -->
-    {{-- <button class="js-close button-close">Close</button>
-</div> --}}
-<div class="my-3 text-right">
+{{-- <div class="my-3 text-right">
     @if($theMenu->favorites()->where('user_id', Auth::id())->first())
         <a href="/menus/{{ $theMenu->id }}/favorite" class="btn r-original-button mt-2 slide-in">
             <i class="fa fa-heart"></i>
@@ -49,7 +21,7 @@
             お気に入りに追加
         </a>
     @endif
-</div>
+</div> --}}
 <div class="container text-center w-60 bg-light p-5 my-3 border border-3 slide-in">
     <div class="col-md-6 offset-md-3 mb-5 text-left">
         <h3 class="stitch d-inline-block">{{ $theMenu->menu_name }}</h3>

@@ -52,12 +52,12 @@ header {
 
 .cover2 {
     animation-delay: .2s;
-    top: calc(100%/3);
+    top: calc(70%/3);
 }
 
 .cover3 {
     animation-delay: .4s;
-    top: calc(100%/3*2);
+    top: calc(70%/3*2);
 }
 
 @keyframes cover {
@@ -117,109 +117,7 @@ header {
     border-left: solid 10px #fac27d;
 }
 
-/* 開くボタン */
-.button-open {
-    display: block;
-    margin-left: auto;
-    padding: 0.5em;
-    background-color: #fff;
-    color: #493311;
-    border-radius: 20rem;
-    cursor: pointer;
-    min-width: 20%;
-    max-width: 40%;
-}
-
-.button-open:hover {
-    display: block;
-    margin-left: auto;
-    padding: 0.5em;
-    background-color: #fdca7d;
-    color: #493311;
-    border-radius: 20rem;
-    min-width: 20%;
-    max-width: 40%;
-}
-  /* モーダルウィンドウ */
-.modal-window {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px;
-    height: 500px;
-    background-color: #dfdddd;
-    border-radius: 5px;
-    z-index: 11;
-    padding: 2rem;
-}
-
-  /* 登録ボタン */
-.button-register {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8rem;
-    padding: 0.5em;
-    background-color: #fff;
-    color: #493311;
-    border-radius: 20rem;
-    cursor: pointer;
-}
-
-.button-register:hover {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8rem;
-    padding: 0.5em;
-    background-color: #fac27d;
-    color: #493311;
-    border-radius: 20rem;
-}
-
-  /* 閉じるボタン */
-.button-close {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8rem;
-    padding: 0.5em;
-    background-color: #fff;
-    color: #493311;
-    border-radius: 20rem;
-    cursor: pointer;
-}
-
-.button-close:hover {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 10rem;
-    padding: 0.5em;
-    background-color: #fac27d;
-    color: #493311;
-    border-radius: 20rem;
-}
-
-  /* オーバーレイ */
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-}
-
-/* お気に入り登録 */
+/* ボタン */
 .original-button {
     border-radius: 5%;
     border: solid 1px #493311;
@@ -251,15 +149,15 @@ header {
 /* カテゴリ一覧 */
 .category-list {
     background: #fcfcfc;
-    box-shadow: 0px 0px 0px 5px #f7d494; /*線の外側*/
-    border: dashed 2px rgb(187, 157, 117); /*破線*/
+    box-shadow: 0px 0px 0px 2px #f7d494; /*線の外側*/
+    border: dashed 1px rgb(187, 157, 117); /*破線*/
     border-radius: 9px;
-    padding: 0.5em;
+    margin: 3px 10px;
 }
 
 .category-item {
     line-height: 1.5;
-    padding: 0.5em 0;
+    padding: 0.5em;
 }
 
 .category-name {
