@@ -20,6 +20,10 @@ class Recipe extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function menu() {
+        return $this->belongsTo('App\Models\Menu');
+    }
+
     /**
      * 献立の買い物リストを取得
      */
