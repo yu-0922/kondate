@@ -26,4 +26,12 @@ class ShoppingList extends Model
     public function menus() {
         return $this->hasMany('App\Models\Menu');
     }
+
+            /**
+     * メニューを登録したユーザーを取得
+     */
+    public function shoppingIngredients() {
+        return $this->hasMany('App\Models\ShoppingIngredient');
+    }
+
 }
