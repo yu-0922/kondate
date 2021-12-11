@@ -37,6 +37,7 @@
                             <li><a style="color:black" href="{{ route('register') }}">会員登録</a></li>
                             <li><a style="color:black" href="{{ route('login') }}">ログイン</a></li>
                             @else
+                            <li><a style="color:black" href="{{ route('home.show') }}">マイページ</a></li>
                             <li><a style="color:black" href="{{ route('logout') }}">ログアウト</a></li>
                             @endif
                         </ul>
@@ -86,7 +87,7 @@
                 <li><a class="nav-link footer-nav" href="{{ route('login') }}">ログイン</a></li>
                 @else
                 <li><a class="nav-link footer-nav" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
-                {{-- <li><a class="nav-link footer-nav" href="{{ route('home') }}">マイページ</a></li> --}}
+                <li><a class="nav-link footer-nav" href="{{ route('home.show') }}">マイページ</a></li>
                 <li><a class="nav-link footer-nav" href="{{ route('logout') }}">ログアウト</a></li>
                 @endif
             </ul>
