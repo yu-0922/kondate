@@ -21,14 +21,6 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    // public function index()
-    // {
-    //     $categories = RecipeCategory::orderBy('created_at', 'desc')->get();
-
-    //     return view('home', ['categories' => $categories]);
-    // }
-
-
         /**
      * Show the form for creating a new resource.
      *
@@ -36,11 +28,9 @@ class HomeController extends Controller
      */
     public function create(Request $request)
     {
-        // $r_day = $request->get('d');
         $menus = Menu::paginate(15);
         return view('recipes.create',[
             'menus' => $menus,
-            // 'r_day' => $r_day
         ]);
     }
 
@@ -104,10 +94,9 @@ class HomeController extends Controller
         for($i=0; $i<=6; $i++) {
             $date = [];
             $text = $carbon->month. "月". $carbon->day. "日";
-            // if($carbon->year == $year && $carbon->month == $month && $carbon->day == $day)
-            //     $text .= "\n[今日]";
             $today = $year. "-". $month. "-". $day;
-            $d = $carbon->year. '-'. $carbon->month. "-". $carbon->day;
+            // 0埋めして日付を取得
+            $d = sprintf("%04d", $carbon->year). '-'. sprintf("%02d", $carbon->month). "-". sprintf("%02d", $carbon->day);
             $date[] = $d;
             $date[] = $text;
             $date[] = \App\Models\Recipe::where('cooking_day', $d)->get();
