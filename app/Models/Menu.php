@@ -21,24 +21,10 @@ class Menu extends Model
     }
 
     /**
-     * メニューに使われる具材を取得
-     */
-    public function ingredients() {
-        return $this->belongsToMany('App\Models\Ingredient');
-    }
-
-    /**
      * メニューのカテゴリを取得
      */
     public function recipeCategory() {
         return $this->belongsTo('App\Models\RecipeCategory');
-    }
-
-    /**
-     * メニューのうちマイメニュー登録されたものを取得
-     */
-    public function myMenus() {
-        return $this->hasMany('App\Models\MyMenu');
     }
 
     //インスタンスを作成し、データベースに値を入れる

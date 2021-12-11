@@ -23,7 +23,7 @@ class ShoppingList extends Model
     /**
      * 買い物リストに入っている具材を取得
      */
-    public function ingredients() {
-        return $this->belongsToMany('App\Models\Ingredient');
+    public function menus() {
+        return $this->hasMany('App\Models\Menu');
     }
 }
