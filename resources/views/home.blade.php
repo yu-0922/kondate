@@ -73,7 +73,7 @@
             </div>
         </div>
         <div>
-            <a class="btn btn-dark my-3 slide-in" href="">買い物リスト作成</a>
+            <a class="btn btn-dark my-3 slide-in" href="{{ route('shoppingList.show') }}">買い物リスト作成</a>
         </div>
     </div>
     <div class="row slide-in">
@@ -83,7 +83,7 @@
             @foreach ($categories as $category)
                 <ul class="list-unstyled category-list">
                     <li class="category-item text-center">
-                        <a href="{{ route('category.show', ['category' => $category]) }}" class="category-name">{{ $category->recipe_category_name }}</a>
+                        <a href="{{ route('category.show', ['category' => $category]) }}" class="category-name">{{ $category->category_name }}</a>
                     </li>
                 </ul>
             @endforeach

@@ -6,7 +6,7 @@
         <div class="row">
             @foreach ($categories as $category)
             <h2 class="w-25 text-center bg-light my-3 ml-3 py-1 category-list category-item slide-in">
-                {{ $category->recipe_category_name }}
+                {{ $category->category_name }}
             </h2>
             <div class="item-list d-flex flex-wrap">
                 @foreach($category->menus()->get() as $menu)
