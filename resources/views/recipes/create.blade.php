@@ -2,7 +2,7 @@
 @section('title', 'カレンダー登録')
 
 @section('content')
-<h2 class="my-5 text-center zoom">以下の欄を入力し登録してください</h2>
+<h2 class="my-5 text-center slide-in">以下の欄を入力し登録してください</h2>
 <div class="container text-center w-70 p-3 bg-white border border-3 slide-in">
     <form method="POST" action="{{ route('home.store') }}">
     {{ csrf_field() }}

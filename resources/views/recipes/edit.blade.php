@@ -2,7 +2,7 @@
 @section('title', 'カレンダー編集')
 
 @section('content')
-<h2 class="my-5 text-center zoom">必要な箇所を編集し更新してください</h2>
+<h2 class="my-5 text-center slide-in">必要な箇所を編集し更新してください</h2>
 <div class="container text-center w-70 p-3 slide-in">
     <form method="POST" action="{{ route('recipe.update') }}">
     <input type="hidden" name="_method" value="PUT">

@@ -2,7 +2,7 @@
 @section('title', 'メニュー新規登録')
 
 @section('content')
-<h2 class="my-5 text-center zoom">以下の欄を入力し登録してください</h2>
+<h2 class="my-5 text-center slide-in">以下の欄を入力し登録してください</h2>
 <div class="container text-center w-70 bg-light p-5 border border-3 slide-in">
     <form method="POST" action="{{ route('menu.store') }}" enctype='multipart/form-data'>
         {{ csrf_field() }}
