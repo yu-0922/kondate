@@ -23,7 +23,7 @@ class Menu extends Model
     /**
      * メニューのカテゴリを取得
      */
-    public function recipeCategory() {
+    public function category() {
         return $this->belongsTo('App\Models\RecipeCategory');
     }
 

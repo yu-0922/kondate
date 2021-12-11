@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\RecipeCategory;
+use App\Models\Category;
 use Facades\App\Models\Recipe;
 use Illuminate\Support\Facades\Auth;
 
@@ -104,7 +104,7 @@ class HomeController extends Controller
             $w_day[] = $date;
         }
 
-        $categories = RecipeCategory::orderBy('created_at', 'desc')->get();
+        $categories = Category::orderBy('created_at', 'desc')->get();
 
         $menu_name = $request->get("menu_name");
         //requestから取得したmenu_nameが空なら全てのメニューを表示、空でなければ該当の者を表示

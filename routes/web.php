@@ -51,8 +51,8 @@ Route::get('/menus', 'MenuController@index')->name('menu.index');
 Route::get('/menus/{id}', 'MenuController@show')->name('menu.show');
 
 // Route::get('/home', 'HomeController@index')->name('home.index');
-Route::get('/categories', 'RecipeCategoryController@index')->name('category.index');
-Route::get('/categories/{id}', 'RecipeCategoryController@show')->name('category.show');
+Route::get('/categories', 'CategoryController@index')->name('category.index');
+Route::get('/categories/{id}', 'CategoryController@show')->name('category.show');
 
 
 Auth::routes();

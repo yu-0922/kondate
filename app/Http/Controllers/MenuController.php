@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Facades\App\Models\Menu;
 use Facades\App\Models\MyMenu;
 use App\Models\User;
-use Facades\App\Models\RecipeCategory;
+use Facades\App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,7 +41,7 @@ class MenuController extends Controller
     public function create(Request $request)
     {
         //カテゴリ一覧を取得
-        $categories = RecipeCategory::get();
+        $categories = Category::get();
 
         return view('menus.create', compact('categories'));
     }
@@ -115,7 +115,7 @@ class MenuController extends Controller
     {
         return view ('menus.show', [
             'theMenu' => Menu::where('id', $id)->first(),
-            'categories' => RecipeCategory::get()
+            'categories' => Category::get()
         ]);
     }
 
@@ -133,7 +133,7 @@ class MenuController extends Controller
             return view ('menus.edit', [
                 'theMenu' => $theMenu ,
                 'datas' => $datas,
-                'categories' => RecipeCategory::get(),
+                'categories' => Category::get(),
             ]);
         }
         abort(401);
@@ -196,7 +196,7 @@ class MenuController extends Controller
         return view ('menus.confirmDelete', [
             'theMenu' => Menu::find($request->id),
             'datas' => $datas,
-            'categories' => RecipeCategory::get(),
+            'categories' => Category::get(),
         ]);
     }
 
