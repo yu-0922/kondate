@@ -2,26 +2,9 @@
 @section('title', 'メニュー詳細')
 
 @section('content')
-<!-- オーバーレイ -->
-<div id="overlay" class="overlay"></div>
-<!-- モーダルウィンドウ -->
-<!-- 開くボタン -->
 <div class="text-right">
     <a class="btn original-button slide-in" href="{{ route('recipe.create') }}">カレンダー登録</a>
 </div>
-{{-- <div class="my-3 text-right">
-    @if($theMenu->favorites()->where('user_id', Auth::id())->first())
-        <a href="/menus/{{ $theMenu->id }}/favorite" class="btn r-original-button mt-2 slide-in">
-            <i class="fa fa-heart"></i>
-            お気に入り解除
-        </a>
-    @else
-        <a href="/menus/{{ $theMenu->id }}/favorite" class="btn original-button mt-2 slide-in">
-            <i class="fa fa-heart"></i>
-            お気に入りに追加
-        </a>
-    @endif
-</div> --}}
 <div class="container text-center w-60 bg-light p-5 my-3 border border-3 slide-in">
     <div class="col-md-6 offset-md-3 mb-5 text-left">
         <h3 class="stitch d-inline-block">{{ $theMenu->menu_name }}</h3>
