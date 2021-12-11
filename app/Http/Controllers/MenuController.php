@@ -56,13 +56,13 @@ class MenuController extends Controller
     {
         //バリデーション
         $validatedData = $request->validate([
-            'recipe_category_id' => 'required',
+            'category_id' => 'required',
             'menu_name' => 'required|max:255',
             'image_path' => 'image|file|nullable',
             'description' => 'max:1000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:3000',
-            'step.*' => 'max:5000|nullable',
+            'step' => 'max:5000|nullable',
             'menu_release' => 'required',
         ]);
         //材料の名前と量を取得して配列にする
@@ -73,7 +73,6 @@ class MenuController extends Controller
             $array[] = [$data, $sizes[$key]];
         }
         $ingredient = json_encode($array);
-
         //手順についても同様に取得して配列に
         $steps = $request->get('step');
 
@@ -87,7 +86,7 @@ class MenuController extends Controller
 
         //modelのメソッドを利用してデータベースにrequestで取得した値を保存
         Menu::create(
-            $request->get('recipe_category_id'),
+            $request->get('category_id'),
             $request->get('menu_name'),
             $path,
             $request->get('description'),
@@ -149,13 +148,13 @@ class MenuController extends Controller
     public function update(Request $request, $datas)
     {
         $validatedData = $request->validate([
-            'recipe_category_id' => 'required',
+            'category_id' => 'required',
             'menu_name' => 'required|max:255',
             'image_path' => 'image|file|nullable',
             'description' => 'max:1000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:3000',
-            'step.*' => 'max:5000|nullable',
+            'step' => 'max:5000|nullable',
             'menu_release' => 'required',
         ]);
 
@@ -179,7 +178,7 @@ class MenuController extends Controller
 
         Menu::edit(
             $request->id,
-            $request->get('recipe_category_id'),
+            $request->get('category_id'),
             $request->get('menu_name'),
             $path,
             $request->get('description'),

@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="text-right">
-    <a class="btn original-button slide-in" href="{{ route('recipe.create') }}">カレンダー登録</a>
+    <a class="btn original-button slide-in" href="{{ route('home.create') }}">カレンダー登録</a>
 </div>
 <div class="container text-center w-60 bg-light p-5 my-3 border border-3 slide-in">
     <div class="col-md-6 offset-md-3 mb-5 text-left">
@@ -40,25 +40,7 @@
     </div>
     <div class="my-5 col-md-6 offset-md-3 text-left">
         <h3 class="side-border d-inline-block">手順</h3>
-        <div class="m-3">
-            @if(is_array(json_decode($theMenu->step, true)))
-            @php
-                $step = "";
-                foreach (json_decode($theMenu->step, true) as $key => $value) {
-                    foreach ($value as $k => $v) {
-                        if (!$k) //
-                            $step .= $v . "\n";
-                        else {
-                            $step .= $v . "　";
-                        }
-                    }
-                }
-            @endphp
-                <p class="text-center">{!! nl2br(e($step)) !!}</p>
-            @else
-                <p class="text-center">{!! nl2br(e($theMenu->step)) !!}</p>
-            @endif
-        </div>
+        <p class="text-center">{{ $theMenu->step }}</p>
     </div>
     <div class="my-5 col-md-6 offset-md-3 text-left">
         <h3 class="side-border d-inline-block">カテゴリー</h3>

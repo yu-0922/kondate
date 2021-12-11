@@ -29,30 +29,6 @@ function add() {
     count++;
 }
 
-// 手順追加
-let inputPlural2 = document.getElementById('input_plural2');
-
-function addStep() {
-    var count = 0;
-
-    let div = document.createElement('DIV');
-    div.classList.add('d-flex');
-
-    var input = document.createElement('INPUT');
-    input.classList.add('form-control');
-    input.setAttribute('name', 'step[]');
-    div.appendChild(input);
-
-    var input = document.createElement('INPUT');
-    input.setAttribute('type', 'button');
-    input.setAttribute('value', '削除');
-    input.setAttribute('onclick', 'del(this)');
-    div.appendChild(input);
-
-    inputPlural2.appendChild(div);
-    count++;
-}
-
 function del(o) {
     o.parentNode.remove();
 }

@@ -45,26 +45,8 @@
         </div>
         <div class="col-6 offset-3 mb-3 text-left border-bottom">
             <h3>手順</h3>
-            <div class="text-center">
-                @if(is_array(json_decode($theMenu->step, true)))
-                @php
-                    $step = "";
-                    foreach (json_decode($theMenu->step, true) as $key => $value) {
-                        foreach ($value as $k => $v) {
-                            if (!$k)
-                                $step .= $v . "\n";
-                            else {
-                                $step .= $v . "　";
-                            }
-                        }
-                    }
-                @endphp
-                    <p>{!! nl2br(e($step)) !!}</p>
-                @else
-                    <p>{{ $theMenu->step }}</p>
-                @endif
-                </div>
-            </div>
+            <p class="text-center">{{ $theMenu->step }}</p>
+        </div>
         <div class="col-6 offset-3 mb-3 text-left border-bottom">
             <h3>カテゴリー</h3>
             <div class="text-center">

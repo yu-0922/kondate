@@ -72,46 +72,21 @@
             </div>
             </label>
         </div>
-        <div id="input_pluralBox2" class="form-group">
-            @error('step.*')
+        <div class="form-group">
+            @error('step')
             <span class="input-error">{{ $message }}</span>
             @enderror
-            <label for="inputStep" class="col-md-6 text-left">{{ __('手順') }}
-                <a onclick=addStep() class="btn btn-sm btn-light mb-2 ml-1">＋手順を追加する</a>
-            <div id="input_plural2">
-            @if(old("step"))
-                @foreach(old("step") as $key => $stp)
-                <div class="d-flex">
-                    <input type="text" class="form-control" id="inputStep" name="step[]" value="{{ $stp }}">
-                    <input type="button" value="削除" onclick="del(this)">
-                </div>
-                @endforeach
-            @else
-                @if(is_array(json_decode($theMenu->step, true)))
-                    @foreach (json_decode($theMenu->step, true) as $key => $value)
-                    <div class="d-flex">
-                        <input type="text" class="form-control" name="step[]" value="{{ $value[0] }}">
-                        <input type="button" value="削除" onclick="del(this)">
-                    </div>
-                    @endforeach
-                @else
-                    <div class="d-flex">
-                        <input type="text" class="form-control" id="inputStep" name="step[]">
-                        <input type="button" value="削除" onclick="del(this)">
-                    </div>
-                @endif
-            @endif
-            </div>
-            </label>
+            <label for="inputStep" class="col-md-6 text-left">{{ __('手順') }}<br>
+            <textarea name="step" class="form-control" id="inputStep">{{ old('step', $theMenu->step) }}</textarea></label>
         </div>
         <div class="form-group">
-            @error('recipe_category_id')
+            @error('category_id')
             <span class="input-error">{{ $message }}</span>
             @enderror
             <label for="category-id" class="col-md-6 text-left">{{ __('カテゴリー') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span>
-            <select class="form-control" id="category-id" name="recipe_category_id">
+            <select class="form-control" id="category-id" name="category_id">
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" @if(old('recipe_category_id', $theMenu->recipe_category_id) == $category->id) selected @endif>{{ $category->recipe_category_name }}</option>
+                    <option value="{{ $category->id }}" @if(old('category_id', $theMenu->category_id) == $category->id) selected @endif>{{ $category->category_name }}</option>
                 @endforeach
             </select>
             </label>
