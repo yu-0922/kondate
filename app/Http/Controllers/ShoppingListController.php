@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\ShoppingList;
 class ShoppingListController extends Controller
 {
     /**
@@ -45,7 +45,9 @@ class ShoppingListController extends Controller
      */
     public function show($id)
     {
-        //
+        return view ('shoppingList', [
+            'recipes' => ShoppingList::where('recipe_id', $id)->first(),
+        ]);
     }
 
     /**

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShoppingList extends Model
 {
+    protected $fillable = [
+        'user_id', 'ingredient', 'recipe_id'
+    ];
+
     /**
      * 買い物リストに関連する献立を取得
      */

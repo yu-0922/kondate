@@ -44,6 +44,7 @@ Route::group(
         Route::get('/home', 'HomeController@show')->name('home.show');
         Route::delete('/home', 'HomeController@destroy')->name('home.destroy');
 
+        Route::get('/shoppingList', 'ShoppingListController@show')->name('shoppingList.show');
     }
 );
 
