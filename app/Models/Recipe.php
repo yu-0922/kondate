@@ -20,15 +20,11 @@ class Recipe extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    /**
+     * 献立に登録したメニューを取得
+     */
     public function menu() {
         return $this->belongsTo('App\Models\Menu');
-    }
-
-    /**
-     * 献立の買い物リストを取得
-     */
-    public function shoppingList() {
-        return $this->belongsTo('App\Models\ShoppingList');
     }
 
     public function create($cooking_day, $recipe_time, $menu_id) {

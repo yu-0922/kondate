@@ -18,7 +18,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-around">
                     <div class="d-flex align-items-center">
-                    <a href={{ route('menu.index') }}>
+                    <a href={{ route('home.show') }}>
                         <img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf.png') }}" class="img-fluid slide-in">
                         <img src="{{ asset('images/freefont_logo_jk-maru-gothic-m.otf2.png') }}" class="img-fluid slide-in">
                     </a>

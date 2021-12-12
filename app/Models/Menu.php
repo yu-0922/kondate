@@ -11,13 +11,27 @@ class Menu extends Model
     use SoftDeletes;
 
     //指定したカラムにデータの挿入を許可する
-    protected $fillable = ['menu_name', 'user_id', 'image_path', 'description', 'step', 'ingredient', 'recipe_category_id', 'menu_release', 'my_menu_register'];
+    protected $fillable = ['menu_name', 'user_id', 'image_path', 'description', 'step', 'ingredient', 'category_id', 'menu_release'];
 
     /**
      * メニューを登録したユーザーを取得
      */
     public function user() {
         return $this->belongsTo('App\Models\User');
+    }
+
+    /**
+     * メニューの材料を取得
+     */
+    public function ingredients() {
+        return $this->hasMany('App\Models\Ingredient');
+    }
+
+    /**
+     * メニューを登録したレシピを取得
+     */
+    public function recipes() {
+        return $this->hasMany('App\Models\Recipe');
     }
 
     /**
@@ -28,9 +42,9 @@ class Menu extends Model
     }
 
     //インスタンスを作成し、データベースに値を入れる
-    public function create($recipe_category_id, $menu_name, $image_path, $description, $ingredient, $step, $menu_release) {
+    public function create($category_id, $menu_name, $image_path, $description, $ingredient, $step, $menu_release) {
         $menu = new self();
-        $menu->recipe_category_id = $recipe_category_id;
+        $menu->recipe_category_id = $category_id;
         $menu->user_id = Auth::id();
         $menu->menu_name = $menu_name;
         $menu->image_path = $image_path;
@@ -41,9 +55,9 @@ class Menu extends Model
         $menu->save();
     }
 
-    public function edit($id, $recipe_category_id, $menu_name, $image_path, $description, $ingredient, $step, $menu_release) {
+    public function edit($id, $category_id, $menu_name, $image_path, $description, $ingredient, $step, $menu_release) {
         $menu = $this->where('id', $id)->first();
-        $menu->recipe_category_id = $recipe_category_id;
+        $menu->recipe_category_id = $category_id;
         $menu->menu_name = $menu_name;
         $menu->image_path = $image_path;
         $menu->description = $description;

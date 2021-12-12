@@ -54,10 +54,4 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Recipe');
     }
 
-    /**
-     * ユーザーの買い物リストを取得
-     */
-    public function shoppingLists() {
-        return $this->hasMany('App\Models\ShoppingList');
-    }
 }
