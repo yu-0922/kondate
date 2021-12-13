@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Facades\App\Models\Menu;
-use Facades\App\Models\MyMenu;
+use App\Models\Menu as Menus;
+use Facades\App\Models\Ingredient;
 use App\Models\User;
 use Facades\App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -38,12 +39,14 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Menu $menu)
     {
         //カテゴリ一覧を取得
         $categories = Category::get();
 
-        return view('menus.create', compact('categories'));
+        return view('menus.create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -58,49 +61,59 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            'image_path' => 'image|file|nullable',
+            // 'image_path' => 'image|file|nullable',
             'description' => 'max:1000|nullable',
-            'ing_name.*' => 'required|max:3000',
-            'ing_size.*' => 'required|max:3000',
+            // 'ing_name.*' => 'required|max:3000',
+            // 'ing_size.*' => 'required|max:3000',
             'step' => 'max:5000|nullable',
             'menu_release' => 'required',
         ]);
         //材料の名前と量を取得して配列にする
-        $datas = $request->get('ing_name');
-        $sizes = $request->get('ing_size');
-        $array = [];
-        foreach($datas as $key => $data){
-            $array[] = [$data, $sizes[$key]];
-        }
-        $ingredient = json_encode($array);
-        //手順についても同様に取得して配列に
-        $steps = $request->get('step');
+        // $datas = $request->get('ing_name');
+        // $sizes = $request->get('ing_size');
+        // $array = [];
+        // foreach($datas as $key => $data){
+        //     $array[] = [$data, $sizes[$key]];
+        // }
+        // $ingredient = json_encode($array);
 
-        $ary = [];
-        foreach($steps as $key => $value){
-            $ary[] = [$value];
-        }
-        $step = json_encode($ary);
         //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
-        $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
-
+        if ($request->hasFile('image_path')) {
+            $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
+        }
         //modelのメソッドを利用してデータベースにrequestで取得した値を保存
-        Menu::create(
+        // Menu::create(
+        //     $request->get('category_id'),
+        //     $request->get('menu_name'),
+        //     $path,
+        //     $request->get('description'),
+        //     $ingredient,
+        //     $step,
+        //     $request->get('menu_release'),
+        // );
+        $menu = new Menus();
+        $menu->create(
             $request->get('category_id'),
             $request->get('menu_name'),
             $path,
             $request->get('description'),
-            $ingredient,
-            $step,
+            $request->get('step'),
             $request->get('menu_release'),
         );
+        $menu->save();
 
-        MyMenu::create(
-            Auth::user()->menus()->orderBy("created_at", "desc")->first(),
-            $ingredient
-        );
+        // $datas = $request->get('ing_name');
+        // $sizes = $request->get('ing_size');
 
-        return redirect()->route('menu.index')->with('message', $validatedData['menu_name'] . 'を登録しました！');
+        // foreach($datas as $key => $data) {
+        //     Ingredient::create([
+        //         'menu_id' => $menu->id,
+        //         'ingredient_name' => $data,
+        //         'unit' => $sizes[$key]
+        //     ]);
+        // }
+        // return redirect()->route('menu.index')->with('message', $validatedData['menu_name'] . 'を登録しました！');
+        return redirect()->route('ingredient.create');
     }
 
     /**
@@ -114,7 +127,8 @@ class MenuController extends Controller
     {
         return view ('menus.show', [
             'theMenu' => Menu::where('id', $id)->first(),
-            'categories' => Category::get()
+            'categories' => Category::get(),
+            'ingredient' => Ingredient::where('id', $id)->first()
         ]);
     }
 

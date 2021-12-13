@@ -51,8 +51,8 @@
             <h3>カテゴリー</h3>
             <div class="text-center">
             @foreach ($categories as $category)
-                @if(($theMenu->recipe_category_id)===$category->id)
-                    <p>{{ $category->recipe_category_name }}</p>
+                @if(($theMenu->category_id)===$category->id)
+                    <p>{{ $category->category_name }}</p>
                 @endif
             @endforeach
             </div>

@@ -17,8 +17,8 @@
     </div>
     <div class="my-5 col-md-6 offset-md-3 text-left">
         <h3 class="side-border d-inline-block">材料</h3>
-        <div class="m-3">
-            {{-- JSON文字列を連想配列にして配列かどうかチェック --}}
+        {{-- <div class="m-3">
+            JSON文字列を連想配列にして配列かどうかチェック
             @if(is_array(json_decode($theMenu->ingredient, true)))
             @php
                 $ingredient = "";
@@ -36,6 +36,11 @@
             @else
                 <p class="text-center">{!! nl2br(e($theMenu->ingredient)) !!}</p>
             @endif
+        </div> --}}
+        <div class="m-3">
+            {{-- @foreach ($ingredient as $ing) --}}
+                <p class="text-center">{{ $ingredient->ingredient_name }}：{{ $ingredient->unit }}</p>
+            {{-- @endforeach --}}
         </div>
     </div>
     <div class="my-5 col-md-6 offset-md-3 text-left">
@@ -46,8 +51,8 @@
         <h3 class="side-border d-inline-block">カテゴリー</h3>
         <div>
             @foreach ($categories as $category)
-                @if(($theMenu->recipe_category_id)===$category->id)
-                    <p class="text-center">{{ $category->recipe_category_name }}</p>
+                @if(($theMenu->category_id)===$category->id)
+                    <p class="text-center">{{ $category->category_name }}</p>
                 @endif
             @endforeach
         </div>

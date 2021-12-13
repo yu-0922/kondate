@@ -26,6 +26,7 @@ Route::group(
         // メニュー関連のルーティング
         Route::get('/menus/create', 'MenuController@create')->name('menu.create');
         Route::post('/menus', 'MenuController@store')->name('menu.store');
+        Route::get('/menus/{id}', 'MenuController@show')->name('menu.show');
         Route::put('/menus/{id}', 'MenuController@update')->name('menu.update');
         Route::get('/menus/{id}/edit', 'MenuController@edit')->name('menu.edit');
         Route::get('/menus/{id}/delete', 'MenuController@confirmDelete')->name('menu.confirmDelete');
@@ -37,21 +38,18 @@ Route::group(
         Route::get('/recipes/{id}/edit', 'RecipeController@edit')->name('recipe.edit');
         Route::delete('/home', 'RecipeController@destroy')->name('recipe.destroy');
 
-        Route::get('/lists', 'ShoppingListController@index')->name('list.index');
-
         Route::get('/recipes/create', 'HomeController@create')->name('home.create');
         Route::post('/home', 'HomeController@store')->name('home.store');
         Route::get('/home', 'HomeController@show')->name('home.show');
         Route::delete('/home', 'HomeController@destroy')->name('home.destroy');
 
-        Route::get('/shoppingList', 'ShoppingListController@show')->name('shoppingList.show');
+        Route::get('/ingredients/create', 'IngredientController@create')->name('ingredient.create');
+        Route::get('/ingredients', 'IngredientController@store')->name('ingredient.store');
     }
 );
 
 Route::get('/menus', 'MenuController@index')->name('menu.index');
-Route::get('/menus/{id}', 'MenuController@show')->name('menu.show');
 
-// Route::get('/home', 'HomeController@index')->name('home.index');
 Route::get('/categories', 'CategoryController@index')->name('category.index');
 Route::get('/categories/{id}', 'CategoryController@show')->name('category.show');
 

@@ -57,7 +57,6 @@ class HomeController extends Controller
             'recipe_time' => $recipe_time,
             'menu_id' => $menu_id
         ]);
-
     }
 
     /**
@@ -115,7 +114,6 @@ class HomeController extends Controller
         }
         //新しい順に並び替え、1ページあたり10件表示
         $menus = $query->orderBy('created_at', 'desc')->paginate(20);
-
 
         return view('home', [
             'week_names' => $week_names,
