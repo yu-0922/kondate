@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Category;
 use Facades\App\Models\Recipe;
+use Facades\App\Models\Ingredient;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -26,11 +27,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $menus = Menu::paginate(15);
         return view('recipes.create',[
-            'menus' => $menus,
+            'menus' => $menus
         ]);
     }
 
@@ -115,6 +116,8 @@ class HomeController extends Controller
         //新しい順に並び替え、1ページあたり10件表示
         $menus = $query->orderBy('created_at', 'desc')->paginate(20);
 
+        $theMenu = request()->get('m');
+
         return view('home', [
             'week_names' => $week_names,
             'carbon' => $carbon,
@@ -123,7 +126,8 @@ class HomeController extends Controller
             'w_day' => $w_day,
             'today' => $today,
             'categories' => $categories,
-            'menus' => $menus
+            'menus' => $menus,
+            'theMenu' => $theMenu
         ]);
     }
 

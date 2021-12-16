@@ -42,24 +42,12 @@
                         <img src="{{ $menu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
                     </div>
                     <div class="col-8">
-                        <h3 class="menu-name slide-in">{{ $menu->menu_name }}</h3>
-                        @if(is_array(json_decode($menu->ingredient, true)))
-                        @php
-                            $ingredient = "";
-                            foreach (json_decode($menu->ingredient, true) as $key => $value) {
-                                foreach ($value as $k => $v) {
-                                    if (!$k)
-                                        $ingredient .= $v . "：";
-                                    else {
-                                        $ingredient .= $v . "　";
-                                    }
-                                }
-                            }
-                        @endphp
-                            <p class="text-truncate mb-1 slide-in" style="max-width:175px; color:#555;">{{ $ingredient }}</p>
-                        @else
-                            <p class="text-truncate mb-1 slide-in" style="max-width:175px; color:#555;">{{ $menu->ingredient }}</p>
-                        @endif
+                        <h3>{{ $menu->menu_name }}</h3>
+                        <h4>
+                        @foreach ($menu->ingredients as $ingredient)
+                            <p class="text-center">{{ $ingredient->ingredient_name }}：{{ $ingredient->unit }}</p>
+                        @endforeach
+                        </h4>
                     </div>
                 </div>
             </div>

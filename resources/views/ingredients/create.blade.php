@@ -6,7 +6,7 @@
 <div class="text-center w-70 bg-light p-5 border border-3 slide-in">
     <div class="row">
         <div class="col-6">
-            <form method="POST" action="{{ route('menu.store') }}" enctype='multipart/form-data'>
+            <form method="POST" action="{{ route('ingredient.store') }}" enctype='multipart/form-data'>
                 {{ csrf_field() }}
                 <div class="form-group">
                     @error('menu_id')
@@ -14,7 +14,7 @@
                     @enderror
                     <label for="create-date" class="col-8 text-left">{{ __('メニュー') }}
                         <div class="form-group text-center">
-                            <input type="text" name="menu_id" class="p-2 w-100 text-center" value="{{ request()->get('m') }}">
+                            <input type="text" name="menu_id" class="p-2 w-100 text-center" value="{{ $theMenu->id }}">
                         </div>
                     </label>
                 </div>

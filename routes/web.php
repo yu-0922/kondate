@@ -36,15 +36,15 @@ Route::group(
         // Route::post('/home', 'RecipeController@store')->name('recipe.store');
         Route::put('/recipes/{id}', 'RecipeController@update')->name('recipe.update');
         Route::get('/recipes/{id}/edit', 'RecipeController@edit')->name('recipe.edit');
-        Route::delete('/home', 'RecipeController@destroy')->name('recipe.destroy');
+        // Route::delete('/home', 'RecipeController@destroy')->name('recipe.destroy');
 
         Route::get('/recipes/create', 'HomeController@create')->name('home.create');
         Route::post('/home', 'HomeController@store')->name('home.store');
         Route::get('/home', 'HomeController@show')->name('home.show');
         Route::delete('/home', 'HomeController@destroy')->name('home.destroy');
 
-        Route::get('/ingredients/create', 'IngredientController@create')->name('ingredient.create');
-        Route::get('/ingredients', 'IngredientController@store')->name('ingredient.store');
+        Route::get('/ingredients', 'IngredientController@show')->name('ingredient.show');
+        Route::delete('/ingredients', 'IngredientController@destroy')->name('ingredient.destroy');
     }
 );
 

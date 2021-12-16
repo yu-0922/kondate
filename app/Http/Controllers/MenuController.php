@@ -22,7 +22,7 @@ class MenuController extends Controller
     public function index(Request $request)
     {
         $menu_name = $request->get("menu_name");
-        //requestから取得したmenu_nameが空なら全てのメニューを表示、空でなければ該当の者を表示
+        //requestから取得したmenu_nameが空なら全てのメニューを表示、空でなければ該当のものを表示
         if (empty($menu_name)) {
             $query = Menu::query();
         } else {
@@ -39,14 +39,12 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Menu $menu)
+    public function create()
     {
         //カテゴリ一覧を取得
         $categories = Category::get();
 
-        return view('menus.create', [
-            'categories' => $categories,
-        ]);
+        return view('menus.create', ['categories' => $categories]);
     }
 
     /**
@@ -63,8 +61,8 @@ class MenuController extends Controller
             'menu_name' => 'required|max:255',
             // 'image_path' => 'image|file|nullable',
             'description' => 'max:1000|nullable',
-            // 'ing_name.*' => 'required|max:3000',
-            // 'ing_size.*' => 'required|max:3000',
+            'ing_name.*' => 'required|max:3000',
+            'ing_size.*' => 'required|max:3000',
             'step' => 'max:5000|nullable',
             'menu_release' => 'required',
         ]);
@@ -78,42 +76,32 @@ class MenuController extends Controller
         // $ingredient = json_encode($array);
 
         //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
+        $path = null;
         if ($request->hasFile('image_path')) {
             $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
         }
-        //modelのメソッドを利用してデータベースにrequestで取得した値を保存
-        // Menu::create(
-        //     $request->get('category_id'),
-        //     $request->get('menu_name'),
-        //     $path,
-        //     $request->get('description'),
-        //     $ingredient,
-        //     $step,
-        //     $request->get('menu_release'),
-        // );
-        $menu = new Menus();
-        $menu->create(
-            $request->get('category_id'),
-            $request->get('menu_name'),
-            $path,
-            $request->get('description'),
-            $request->get('step'),
-            $request->get('menu_release'),
-        );
-        $menu->save();
+        //メニューテーブルにrequestで取得した値を保存
+        $menu = \Auth::user()->menus()->create([
+            'category_id' => $request->get('category_id'),
+            'menu_name' => $request->get('menu_name'),
+            'image_path' => $path,
+            'description' => $request->get('description'),
+            'step' => $request->get('step'),
+            'menu_release' => $request->get('menu_release'),
+        ]);
 
-        // $datas = $request->get('ing_name');
-        // $sizes = $request->get('ing_size');
+        $datas = $request->get('ing_name');
+        $sizes = $request->get('ing_size');
 
-        // foreach($datas as $key => $data) {
-        //     Ingredient::create([
-        //         'menu_id' => $menu->id,
-        //         'ingredient_name' => $data,
-        //         'unit' => $sizes[$key]
-        //     ]);
-        // }
-        // return redirect()->route('menu.index')->with('message', $validatedData['menu_name'] . 'を登録しました！');
-        return redirect()->route('ingredient.create');
+        foreach($datas as $key => $data) {
+            Ingredient::create([
+                'menu_id' => $menu->id,
+                'ingredient_name' => $data,
+                'unit' => $sizes[$key]
+            ]);
+        }
+
+        return redirect()->route('menu.index')->with('message', $validatedData['menu_name'] . 'を登録しました！');
     }
 
     /**
@@ -128,7 +116,7 @@ class MenuController extends Controller
         return view ('menus.show', [
             'theMenu' => Menu::where('id', $id)->first(),
             'categories' => Category::get(),
-            'ingredient' => Ingredient::where('id', $id)->first()
+            'ingredients' => Ingredient::where('menu_id', $id)->get()
         ]);
     }
 
@@ -164,7 +152,7 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            'image_path' => 'image|file|nullable',
+            // 'image_path' => 'image|file|nullable',
             'description' => 'max:1000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:3000',
@@ -172,34 +160,31 @@ class MenuController extends Controller
             'menu_release' => 'required',
         ]);
 
+        //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
+        $path = null;
+        if ($request->hasFile('image_path')) {
+            $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
+        }
+        //メニューテーブルにrequestで取得した値を保存
+        $menu = \Auth::user()->menus()->edit([
+            'category_id' => $request->get('category_id'),
+            'menu_name' => $request->get('menu_name'),
+            'image_path' => $path,
+            'description' => $request->get('description'),
+            'step' => $request->get('step'),
+            'menu_release' => $request->get('menu_release'),
+        ]);
+
         $datas = $request->get('ing_name');
         $sizes = $request->get('ing_size');
-        $array = [];
-        foreach($datas as $key => $data){
-            $array[] = [$data, $sizes[$key]];
+
+        foreach($datas as $key => $data) {
+            Ingredient::edit([
+                'menu_id' => $menu->id,
+                'ingredient_name' => $data,
+                'unit' => $sizes[$key]
+            ]);
         }
-        $ingredient = json_encode($array);
-
-        $steps = $request->get('step');
-
-        $ary = [];
-        foreach($steps as $key => $value){
-            $ary[] = [$value];
-        }
-        $step = json_encode($ary);
-
-        $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
-
-        Menu::edit(
-            $request->id,
-            $request->get('category_id'),
-            $request->get('menu_name'),
-            $path,
-            $request->get('description'),
-            $ingredient,
-            $step,
-            $request->get('menu_release'),
-        );
 
         return redirect()->route('menu.edit', [ 'theMenu' => Menu::find($request->id) ])->with('message', $validatedData['menu_name'] . 'を更新しました！');
     }

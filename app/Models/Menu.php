@@ -42,14 +42,13 @@ class Menu extends Model
     }
 
     //インスタンスを作成し、データベースに値を入れる
-    // public function create($category_id, $menu_name, $image_path, $description, $ingredient, $step, $menu_release) {
+    // public function create($category_id, $menu_name, $image_path, $description, $step, $menu_release) {
     //     $menu = new self();
     //     $menu->category_id = $category_id;
     //     $menu->user_id = Auth::id();
     //     $menu->menu_name = $menu_name;
     //     $menu->image_path = $image_path;
     //     $menu->description = $description;
-    //     $menu->ingredient = $ingredient;
     //     $menu->step = $step;
     //     $menu->menu_release = $menu_release;
     //     $menu->save();

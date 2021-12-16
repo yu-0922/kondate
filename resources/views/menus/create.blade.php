@@ -36,7 +36,7 @@
             <label for="inputDescription" class="col-md-6 text-left">{{ __('説明') }}<br>
             <textarea name="description" class="form-control" id="inputDescription">{{ old('description') }}</textarea></label>
         </div>
-        {{-- <div id="input_pluralBox" class="form-group">
+        <div id="input_pluralBox" class="form-group">
             @error('ing_name.*')
             <span class="input-error">{{ $message }}</span>
             @enderror
@@ -61,33 +61,7 @@
                 </div>
                 <button type="button" onclick="add()" class="btn btn-sm btn-outline-dark ml-1">＋材料を追加する</button>
             </label>
-        </div> --}}
-        {{-- <div id="input_pluralBox" class="form-group">
-            @error('ingredient_name')
-            <span class="input-error">{{ $message }}</span>
-            @enderror
-            <label for="inputIngredient" class="col-md-6 text-left">{{ __('材料') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span>
-                <p class="my-1">※左の入力欄に「材料名」、右の入力欄に「量」を記載してください。</p>
-                <div id="input_plural">
-                    @if(old("ingredient_name"))
-                    @foreach(old("ingredient_name") as $ingredient)
-                    <div class="d-flex">
-                        <input type="text" class="form-control" name="ingredient_name" value="{{ $ingredient }}">
-                        <input type="text" class="form-control" name="unit" value="{{ old('unit') }}">
-                        <input type="button" value="削除" onclick="del(this)">
-                    </div>
-                    @endforeach
-                    @else
-                    <div class="d-flex">
-                        <input type="text" class="form-control" name="ingredient_name">
-                        <input type="text" class="form-control" name="unit">
-                        <input type="button" value="削除" onclick="del(this)">
-                    </div>
-                    @endif
-                </div>
-                <button type="button" onclick="add()" class="btn btn-sm btn-outline-dark ml-1">＋材料を追加する</button>
-            </label>
-        </div> --}}
+        </div>
         <div class="form-group">
             @error('step')
             <span class="input-error">{{ $message }}</span>

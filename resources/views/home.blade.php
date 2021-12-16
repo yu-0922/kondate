@@ -12,7 +12,7 @@
             @endif
         </div>
         <div class="text-right slide-in">
-            <a class="btn btn-dark btn-sm my-2 mr-2" href="{{ route('home.create') }}">カレンダー登録</a>
+            <a class="btn btn-dark btn-sm my-2 mr-2" href="{{ route('home.create') }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a>
         </div>
         <div class="card text-center slide-in">
             <div class="my-3 d-flex flex-nowrap justify-content-around">
@@ -55,8 +55,8 @@
                                 <td>
                                     @foreach($w_day[$i][2] as $recipe)
                                     <div class="d-flex">
-                                        ({{ $recipe->recipe_time }}) {{ $recipe->menu->menu_name }}
-                                        <form method="POST" action="{{ route('home.show') }}">
+                                        {{ $recipe->recipe_time }}：{{ $recipe->menu->menu_name }}
+                                        <form method="POST" action="{{ route('home.destroy') }}">
                                             <input type="hidden" name="_method" value="DELETE">
                                             {{ csrf_field() }}
                                             <input type="submit" class="btn bg-white btn-sm slide-in" value="×">
@@ -72,7 +72,7 @@
         </div>
     </div>
     <div>
-        <a class="btn btn-dark my-3 slide-in" href="">買い物リスト作成</a>
+        <a class="btn btn-dark my-3 slide-in" href="{{ route('ingredient.show') }}"><i class="far fa-list-alt pr-1"></i>買い物リスト作成</a>
     </div>
 </div>
 <div class="row slide-in">
@@ -90,7 +90,7 @@
     </div>
     <h2 class="ml-5 pt-1">メニュー</h2>
     @if (\Auth::user())
-    <a class="btn btn-dark btn-sm ml-3 mb-3" href="{{ route('menu.create') }}"><i class="fas fa-magic pr-1"></i>メニュー新規登録</a>
+    <a class="btn btn-dark btn-sm ml-3 mb-3 mt-1" href="{{ route('menu.create') }}"><i class="fas fa-magic pr-1"></i>メニュー新規登録</a>
     @endif
     <div class="col-12">
         <div class="item-list d-flex flex-wrap">
@@ -101,27 +101,14 @@
                         <div class="cover1"></div>
                         <div class="cover2"></div>
                         <div class="cover3"></div>
-                        <img src="/storage/images/{{ $menu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
+                        {{-- <img src="/storage/images/{{ $menu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像"> --}}
+                        <img src="{{ $menu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
                     </div>
                     <div class="col-8">
                         <h3 class="menu-name slide-in">{{ $menu->menu_name }}</h3>
-                            @if(is_array(json_decode($menu->ingredient, true)))
-                            @php
-                                $ingredient = "";
-                                foreach (json_decode($menu->ingredient, true) as $key => $value) {
-                                    foreach ($value as $k => $v) {
-                                        if (!$k)
-                                            $ingredient .= $v . "：";
-                                        else {
-                                            $ingredient .= $v . "　";
-                                        }
-                                    }
-                                }
-                            @endphp
-                                <p class="text-truncate mb-1 slide-in" style="max-width:175px; color:#555;">{{ $ingredient }}</p>
-                            @else
-                                <p class="text-truncate mb-1 slide-in" style="max-width:175px; color:#555;">{{ $menu->ingredient }}</p>
-                            @endif
+                        @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 1)
+                        <a class="btn btn-outline-dark btn-sm slide-in mb-1" href="{{ route('home.create') }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a><br>
+                        @endif
                         <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('menu.show', ['theMenu' => $menu]) }}"><i class="fab fa-elementor pr-1"></i>詳細</a>
                         @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 1)
                         <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('menu.edit', ['theMenu' => $menu]) }}"><i class="fas fa-wrench pr-1"></i>編集</a>
