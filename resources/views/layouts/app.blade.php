@@ -45,21 +45,6 @@
                 </div>
             </div>
         </header>
-        {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light slide-in">
-            <a class="navbar-brand" href="{{ route('top') }}">Top</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                @if (!\Auth::user())
-                <li><a class="nav-link" href="{{ route('register') }}">会員登録</a></li>
-                <li><a class="nav-link" href="{{ route('login') }}">ログイン</a></li>
-                @else
-                <li><a class="nav-link" href="{{ route('logout') }}">ログアウト</a></li>
-                @endif
-            </ul>
-        </nav> --}}
         <!----- ヘッダー END ----->
 
         <!----- メインコンテンツ ----->
@@ -67,12 +52,12 @@
             @if (session()->has("message"))
             <div class="row">
                 <div class="ml-4">
-                    <div class="m-2 p-2 border border-success bg-light">{{ session('message') }}</div>
+                    <div class="m-2 p-2 border border-dark bg-light">{{ session('message') }}</div>
                 </div>
             </div>
             @endif
 
-            <h1 class="text-center mt-3 my-0 slide-in">@yield('title')</h1>
+            <h1 class="text-center mt-3 mb-1 slide-in">@yield('title')</h1>
             <div class="container">
                 @yield('content')
             </div>

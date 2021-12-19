@@ -2,7 +2,7 @@
 @section('title', 'メニュー編集')
 
 @section('content')
-<h2 class="my-5 text-center slide-in">必要な箇所を編集し更新してください</h2>
+<h2 class="my-3 text-center slide-in">必要な箇所を編集し更新してください</h2>
     <div class="container text-center w-70 bg-light p-5 border border-3 slide-in">
         <form method="POST" action="{{ route('menu.update', ['theMenu' => $theMenu]) }}">
         <input type="hidden" name="_method" value="PUT">
@@ -42,7 +42,6 @@
             <span class="input-error">{{ $message }}</span>
             @enderror
             <label for="inputIngredient" class="col-md-6 text-left">{{ __('材料') }}<span class="badge badge-danger ml-2">{{ __('必須') }}</span>
-                <a onclick=add() class="btn btn-sm btn-light ml-1">＋材料を追加する</a>
             <div id="input_plural">
                 @if(old("ing_name"))
                     @foreach(old("ing_name") as $key => $ing)
@@ -53,11 +52,11 @@
                     </div>
                     @endforeach
                 @else
-                    @if(is_array(json_decode($theMenu->ingredient, true)))
-                        @foreach (json_decode($theMenu->ingredient, true) as $key => $value)
+                    @if($theMenu->ingredients)
+                    @foreach ($theMenu->ingredients as $key => $value)
                         <div class="d-flex">
-                            <input type="text" class="form-control" name="ing_name[]" value="{{ $value[0] }}">
-                            <input type="text" class="form-control" name="ing_size[]" value="{{ $value[1] }}">
+                            <input type="text" class="form-control" name="ing_name[]" value="{{ $value["ingredient_name"] }}">
+                            <input type="text" class="form-control" name="ing_size[]" value="{{ $value["unit"] }}">
                             <input type="button" value="削除" onclick="del(this)">
                         </div>
                         @endforeach
@@ -70,6 +69,7 @@
                     @endif
                 @endif
             </div>
+            <a onclick=add() class="btn btn-sm btn-light ml-1">＋材料を追加する</a>
             </label>
         </div>
         <div class="form-group">

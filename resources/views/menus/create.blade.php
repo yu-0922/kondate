@@ -2,7 +2,7 @@
 @section('title', 'メニュー新規登録')
 
 @section('content')
-<h2 class="my-5 text-center slide-in">以下の欄を入力し登録してください</h2>
+<h2 class="my-3 text-center slide-in">以下の欄を入力し登録してください</h2>
 <div class="container text-center w-70 bg-light p-5 border border-3 slide-in">
     <form method="POST" action="{{ route('menu.store') }}" enctype='multipart/form-data'>
         {{ csrf_field() }}
@@ -97,8 +97,6 @@
             </label>
         </div>
         <div class="text-center form-group mb-5">
-            {{-- <a href="{{ url('/ingredients/create?m='.$menu_id) }}"><input type="submit" class="btn btn-outline-dark mr-3" value="登録"></a> --}}
-            {{-- <a href="{{ route('ingredient.create', ['menu' => $menu]) }}"><input type="submit" class="btn btn-outline-dark mr-3" value="登録"></a> --}}
             <input type="submit" class="btn btn-outline-dark mr-3" value="登録">
             <button type="button" class="btn btn-outline-dark" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
         </div>

@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use Facades\App\Models\Menu;
-use App\Models\Menu as Menus;
 use Facades\App\Models\Ingredient;
-use App\Models\User;
 use Facades\App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 class MenuController extends Controller
 {
@@ -66,14 +63,6 @@ class MenuController extends Controller
             'step' => 'max:5000|nullable',
             'menu_release' => 'required',
         ]);
-        //材料の名前と量を取得して配列にする
-        // $datas = $request->get('ing_name');
-        // $sizes = $request->get('ing_size');
-        // $array = [];
-        // foreach($datas as $key => $data){
-        //     $array[] = [$data, $sizes[$key]];
-        // }
-        // $ingredient = json_encode($array);
 
         //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
         $path = null;
@@ -101,7 +90,7 @@ class MenuController extends Controller
             ]);
         }
 
-        return redirect()->route('menu.index')->with('message', $validatedData['menu_name'] . 'を登録しました！');
+        return redirect()->route('home.show')->with('message', $validatedData['menu_name'] . 'を登録しました！');
     }
 
     /**

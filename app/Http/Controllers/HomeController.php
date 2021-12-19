@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Category;
 use Facades\App\Models\Recipe;
-use Facades\App\Models\Ingredient;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -20,19 +19,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-        /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $menus = Menu::paginate(15);
-        return view('recipes.create',[
-            'menus' => $menus
-        ]);
     }
 
     public function store(Request $request)
@@ -107,16 +93,14 @@ class HomeController extends Controller
         $categories = Category::orderBy('created_at', 'desc')->get();
 
         $menu_name = $request->get("menu_name");
-        //requestから取得したmenu_nameが空なら全てのメニューを表示、空でなければ該当の者を表示
+        //requestから取得したmenu_nameが空なら全てのメニューを表示、空でなければ該当のものを表示
         if (empty($menu_name)) {
             $query = Menu::query();
         } else {
             $query = Menu::where("menu_name", "LIKE", "%$menu_name%");
         }
-        //新しい順に並び替え、1ページあたり10件表示
+        //新しい順に並び替え、1ページあたり20件表示
         $menus = $query->orderBy('created_at', 'desc')->paginate(20);
-
-        $theMenu = request()->get('m');
 
         return view('home', [
             'week_names' => $week_names,
@@ -126,16 +110,7 @@ class HomeController extends Controller
             'w_day' => $w_day,
             'today' => $today,
             'categories' => $categories,
-            'menus' => $menus,
-            'theMenu' => $theMenu
+            'menus' => $menus
         ]);
-    }
-
-    public function destroy(Request $request)
-    {
-        $recipe = Recipe::find($request->id);
-        $recipe->delete();
-
-        return redirect()->route('home');
     }
 }
