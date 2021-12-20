@@ -12,14 +12,13 @@
             @endif
         </div>
         <div class="text-right slide-in">
-            <a class="btn btn-dark btn-sm my-2 mr-2" href="{{ route('home.create') }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a>
+            <a class="btn btn-dark btn-sm my-2 mr-2" href="{{ route('recipe.create') }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a>
         </div>
         <div class="card text-center slide-in">
             <div class="my-3 d-flex flex-nowrap justify-content-around">
                 {{-- 前の週をクリックするとw=-1となり、1週間前に遷移する --}}
                 <a class="btn btn-outline-dark btn-sm" href="{{ url('/home?w=' . $before) }}">前の週</a>
                 <div class="d-flex flex-nowrap">
-                    {{-- <h3>{{ $carbon->year. "年". $carbon->month. "月（". $carbon->weekOfMonth. "週目）"}}</h3> --}}
                     <h3>{{ $carbon->month. "月（". $carbon->weekOfMonth. "週目）"}}</h3>
                     <a class="btn btn-outline-dark btn-sm" href="{{ url('/home?w=0') }}">今週に戻る</a>
                 </div>
@@ -55,12 +54,7 @@
                                 <td>
                                     @foreach($w_day[$i][2] as $recipe)
                                     <div class="d-flex">
-                                        {{ $recipe->recipe_time }}：{{ $recipe->menu->menu_name }}
-                                        <form method="POST" action="{{ route('home.destroy') }}">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            {{ csrf_field() }}
-                                            <input type="submit" class="btn bg-white btn-sm slide-in" value="×">
-                                        </form>
+                                        <a style="color:black" href="{{ route('recipe.show', ['theMenu' => $recipe->menu]) }}">{{ $recipe->recipe_time }}：{{ optional($recipe->menu)->menu_name }}</a>
                                     </div>
                                     @endforeach
                                 </td>
@@ -107,7 +101,7 @@
                     <div class="col-8">
                         <h3 class="menu-name slide-in">{{ $menu->menu_name }}</h3>
                         @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 1)
-                        <a class="btn btn-outline-dark btn-sm slide-in mb-1" href="{{ route('home.create') }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a><br>
+                        <a class="btn btn-outline-dark btn-sm slide-in mb-1" href="{{ route('recipe.createMenu', ['theMenu' => $menu]) }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a><br>
                         @endif
                         <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('menu.show', ['theMenu' => $menu]) }}"><i class="fab fa-elementor pr-1"></i>詳細</a>
                         @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 1)

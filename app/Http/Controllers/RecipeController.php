@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Facades\App\Models\Recipe;
+use Facades\App\Models\Category;
+use Facades\App\Models\Ingredient;
+use Facades\App\Models\Menu;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -22,9 +25,19 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        //
+        $menus = Menu::paginate(15);
+        return view('recipes.create',[
+            'menus' => $menus
+        ]);
+    }
+
+    public function createMenu(Request $request)
+    {
+        return view('recipes.createMenu',[
+            'theMenu' => Menu::find($request->id)
+        ]);
     }
 
     /**
@@ -44,10 +57,19 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // public function show($id)
+    // {
+    //     return view('home', ['recipe' => Recipe::get()]);
+    // }
     public function show($id)
     {
-        return view('home', ['recipe' => Recipe::get()]);
+        return view ('recipes.show', [
+            'theMenu' => Menu::where('id', $id)->first(),
+            'categories' => Category::get(),
+            'ingredients' => Ingredient::where('menu_id', $id)->get()
+        ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -79,17 +101,22 @@ class RecipeController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function confirmDelete(Request $request, $datas)
+    {
+        return view ('recipes.confirmDelete', [
+            'theMenu' => Menu::find($request->id),
+            'datas' => $datas,
+            'categories' => Category::get(),
+        ]);
+    }
+
     public function destroy(Request $request)
     {
-        $recipe = Recipe::find($request->id);
-        $recipe->delete();
-
-        return redirect()->route('home');
+        $theMenu = Menu::find($request->id);
+        if(\Auth::id() == 1 || \Auth::id() == $theMenu->user_id){
+            $theMenu->delete();
+            return redirect()->route('home.show');
+        }
+        abort(401);
     }
 }

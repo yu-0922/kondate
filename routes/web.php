@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('top');
+Route::get('/', 'MenuController@index')->name('menu.index');
 
 Route::group(
     ["middleware" => "auth"],
@@ -32,23 +30,22 @@ Route::group(
         Route::get('/menus/{id}/delete', 'MenuController@confirmDelete')->name('menu.confirmDelete');
         Route::delete('/menus/{id}', 'MenuController@destroy')->name('menu.destroy');
 
-        // Route::get('/recipes/create', 'RecipeController@create')->name('recipe.create');
+        Route::get('/recipes/create', 'RecipeController@create')->name('recipe.create');
+        Route::get('/recipes/create/{id}', 'RecipeController@createMenu')->name('recipe.createMenu');
+        Route::get('/recipes/{id}', 'RecipeController@show')->name('recipe.show');
+        Route::get('/recipe/{id}/delete', 'RecipeController@confirmDelete')->name('recipe.confirmDelete');
+        Route::delete('/recipes/{id}', 'RecipeController@destroy')->name('recipe.destroy');
         // Route::post('/home', 'RecipeController@store')->name('recipe.store');
-        Route::put('/recipes/{id}', 'RecipeController@update')->name('recipe.update');
-        Route::get('/recipes/{id}/edit', 'RecipeController@edit')->name('recipe.edit');
-        // Route::delete('/home', 'RecipeController@destroy')->name('recipe.destroy');
+        // Route::put('/recipes/{id}', 'RecipeController@update')->name('recipe.update');
+        // Route::get('/recipes/{id}/edit', 'RecipeController@edit')->name('recipe.edit');
 
-        Route::get('/recipes/create', 'HomeController@create')->name('home.create');
         Route::post('/home', 'HomeController@store')->name('home.store');
         Route::get('/home', 'HomeController@show')->name('home.show');
-        Route::delete('/home', 'HomeController@destroy')->name('home.destroy');
 
         Route::get('/ingredients', 'IngredientController@show')->name('ingredient.show');
         Route::delete('/ingredients', 'IngredientController@destroy')->name('ingredient.destroy');
     }
 );
-
-Route::get('/menus', 'MenuController@index')->name('menu.index');
 
 Route::get('/categories', 'CategoryController@index')->name('category.index');
 Route::get('/categories/{id}', 'CategoryController@show')->name('category.show');

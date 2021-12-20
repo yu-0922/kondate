@@ -43,44 +43,28 @@ class IngredientController extends Controller
 
     public function show()
     {
-        // 今日を取得
-        $dt = Carbon::today();
-        $s_week = $dt->startOfWeek()->subDay(1);
-        $e_week = $s_week->copy()->addDays(6);
-        // //曜日番号を取得
-        // $skip = $carbon->dayOfWeek;
-        // //取得した曜日番号の分だけ日数を減らす
-        // $carbon->subDays($skip);
-
-        // for($i=0; $i<=6; $i++) {
-        //     $date = [];
-        //     // 0埋めして日付を取得
-        //     $d = sprintf("%04d", $carbon->year). '-'. sprintf("%02d", $carbon->month). "-". sprintf("%02d", $carbon->day);
-        //     $ingredients = \App\Models\Recipe::with(['menu' => function($query){
-        //             $query->with('ingredients');
-        //         }])->get();
-        //     // $recipes = \App\Models\Recipe::with('menu')->select('menu_id')->where('cooking_day', $d)->get();
-        //     // $ingredients = Ingredient::get();
-        //     $date[] = $d;
-        //     $date[] = $ingredients;
-        //     $carbon->addDay();
-        //     $w_day[] = $date;
-        // }
-        // $menus = $query->orderBy('created_at', 'desc')->paginate(10);
-        // dd($w_day);
-
         // $ingredients = Ingredient::whereHas('menu', function ($query) {
         //     $query->where('user_id', Auth::id());
         // })->where('cooking_day', '>=', $s_week)->where('cooking_day', '<=', $e_week)->orderBy('ingredient_name', 'desc')->get();
 
-        $ingredients = Ingredient::whereHas('menu', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->whereHas('menu.recipes', function ($query) {
-            $dt = Carbon::today();
-            $s_week = $dt->startOfWeek()->subDay(1);
-            $e_week = $s_week->copy()->addDays(6);
-            $query->where('cooking_day', '>=', $s_week)->where('cooking_day', '<=', $e_week);
-        })->orderBy('ingredient_name', 'desc')->get();
+        // 今日を取得
+        $dt = Carbon::today();
+        // 週初めを取得
+        $s_week = $dt->startOfWeek()->subDay(1);
+        // 週終わりを取得
+        $e_week = $s_week->copy()->addDays(6);
+
+        // 指定の日付範囲のレシピに紐付いたメニューに紐付いた材料を取得
+        $recipes = \Auth::user()->recipes()->with('menu.ingredients')->where('cooking_day', '>=', $s_week)->where('cooking_day', '<=', $e_week)->get();
+
+        $ingredients = [];
+        foreach($recipes as $recipe) {
+            foreach($recipe->menu->ingredients as $ingredient) {
+                $ingredients[] = $ingredient->toArray();
+            }
+        }
+        // 名前順にソート
+        $ingredients = collect($ingredients)->sortBy('ingredient_name')->values();
 
         return view('ingredients.show', [
             'ingredients' => $ingredients,
