@@ -30,26 +30,24 @@ Route::group(
         Route::get('/menus/{id}/delete', 'MenuController@confirmDelete')->name('menu.confirmDelete');
         Route::delete('/menus/{id}', 'MenuController@destroy')->name('menu.destroy');
 
+        // レシピ関連のルーティング
         Route::get('/recipes/create', 'RecipeController@create')->name('recipe.create');
         Route::get('/recipes/create/{id}', 'RecipeController@createMenu')->name('recipe.createMenu');
         Route::get('/recipes/{id}', 'RecipeController@show')->name('recipe.show');
-        Route::get('/recipe/{id}/delete', 'RecipeController@confirmDelete')->name('recipe.confirmDelete');
-        Route::delete('/recipes/{id}', 'RecipeController@destroy')->name('recipe.destroy');
-        // Route::post('/home', 'RecipeController@store')->name('recipe.store');
-        // Route::put('/recipes/{id}', 'RecipeController@update')->name('recipe.update');
-        // Route::get('/recipes/{id}/edit', 'RecipeController@edit')->name('recipe.edit');
+        Route::delete('/recipes', 'RecipeController@destroy')->name('recipe.destroy');
 
+        // ホーム関連のルーティング
         Route::post('/home', 'HomeController@store')->name('home.store');
         Route::get('/home', 'HomeController@show')->name('home.show');
 
+        // 材料関聯のルーティング
         Route::get('/ingredients', 'IngredientController@show')->name('ingredient.show');
-        Route::delete('/ingredients', 'IngredientController@destroy')->name('ingredient.destroy');
     }
 );
 
-Route::get('/categories', 'CategoryController@index')->name('category.index');
+// カテゴリー関連のルーティング
+// Route::get('/categories', 'CategoryController@index')->name('category.index');
 Route::get('/categories/{id}', 'CategoryController@show')->name('category.show');
-
 
 Auth::routes();
 

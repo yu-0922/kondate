@@ -17,14 +17,4 @@ class Ingredient extends Model
     public function menu() {
         return $this->belongsTo('App\Models\Menu');
     }
-
-    // public function create($menu_id, $ingredient_name, $unit) {
-    //     $menu = new self();
-    //     $menu->menu_id = $menu_id;
-    //     $menu->user_id = Auth::id();
-    //     $menu->ingredient_name = $ingredient_name;
-    //     $menu->unit = $unit;
-    //     $menu->save();
-    // }
-
 }

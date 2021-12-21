@@ -112,11 +112,13 @@ class RecipeController extends Controller
 
     public function destroy(Request $request)
     {
-        $theMenu = Menu::find($request->id);
-        if(\Auth::id() == 1 || \Auth::id() == $theMenu->user_id){
+        $theMenu = Recipe::find($request->id);
+
+        if(\Auth::id() == $theMenu->user_id){
             $theMenu->delete();
             return redirect()->route('home.show');
         }
+
         abort(401);
     }
 }

@@ -56,12 +56,11 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            // 'image_path' => 'image|file|nullable',
+            'image_path' => 'image|file|nullable',
             'description' => 'max:1000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:3000',
             'step' => 'max:5000|nullable',
-            'menu_release' => 'required',
         ]);
 
         //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
@@ -76,7 +75,6 @@ class MenuController extends Controller
             'image_path' => $path,
             'description' => $request->get('description'),
             'step' => $request->get('step'),
-            'menu_release' => $request->get('menu_release'),
         ]);
 
         $datas = $request->get('ing_name');
@@ -141,12 +139,11 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            // 'image_path' => 'image|file|nullable',
+            'image_path' => 'image|file|nullable',
             'description' => 'max:1000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:3000',
             'step' => 'max:5000|nullable',
-            'menu_release' => 'required',
         ]);
 
         //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
@@ -161,7 +158,6 @@ class MenuController extends Controller
             'image_path' => $path,
             'description' => $request->get('description'),
             'step' => $request->get('step'),
-            'menu_release' => $request->get('menu_release'),
         ]);
 
         $datas = $request->get('ing_name');

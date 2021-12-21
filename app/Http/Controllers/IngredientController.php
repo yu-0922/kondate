@@ -43,10 +43,6 @@ class IngredientController extends Controller
 
     public function show()
     {
-        // $ingredients = Ingredient::whereHas('menu', function ($query) {
-        //     $query->where('user_id', Auth::id());
-        // })->where('cooking_day', '>=', $s_week)->where('cooking_day', '<=', $e_week)->orderBy('ingredient_name', 'desc')->get();
-
         // 今日を取得
         $dt = Carbon::today();
         // 週初めを取得
@@ -70,15 +66,4 @@ class IngredientController extends Controller
             'ingredients' => $ingredients,
         ]);
     }
-
-    public function destroy(Request $request)
-    {
-        $ingredient = Ingredient::find($request->id);
-        if(\Auth::id() == 1 || \Auth::id() == User::id()){
-            $ingredient->delete();
-            return redirect()->route('menu.index');
-        }
-        abort(401);
-    }
-
 }

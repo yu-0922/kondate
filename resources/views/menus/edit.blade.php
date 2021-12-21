@@ -91,21 +91,6 @@
             </select>
             </label>
         </div>
-        <div class="form-group">
-            @error('menu_release')
-            <span class="input-error">{{ $message }}</span>
-            @enderror
-            <label class="col-md-6 text-left">{{ __('投稿') }}<span class="badge badge-danger mr-3 mt-1 ml-1 h-50">{{ __('必須') }}</span>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="menu_release" class="form-check-input" id="radioRelease1" value="投稿しない" {{ old ('menu_release', $theMenu->menu_release) == '投稿しない' ? 'checked' : '' }}>
-                <label for="radioRelease1" class="form-check-label">投稿しない</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="menu_release" class="form-check-input" id="radioRelease2" value="投稿する" {{ old ('menu_release', $theMenu->menu_release) == '投稿する' ? 'checked' : '' }}>
-                <label for="radioRelease2" class="form-check-label">投稿する</label>
-            </div>
-            </label>
-        </div>
         <div class="text-center form-group mb-5">
             <input type="submit" class="btn btn-outline-dark" value="更新">
             <button type="button" class="btn btn-outline-dark" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
