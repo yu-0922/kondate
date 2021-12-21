@@ -24,8 +24,8 @@
                 </div>
                 <a class="btn btn-outline-dark btn-sm" href="{{ url('/home?w=' . $after) }}">次の週</a>
             </div>
-            <div class="table-responsive px-3 pb-3">
-                <table class="table table-bordered">
+            <div class="px-3 pb-3">
+                <table class="table table-responsive table-bordered">
                     <thead class="card-header">
                         <tr>
                             @foreach ($week_names as $week_name)
@@ -55,6 +55,12 @@
                                     @foreach($w_day[$i][2] as $recipe)
                                     <div class="d-flex">
                                         <a style="color:black" href="{{ route('recipe.show', ['theMenu' => $recipe->menu]) }}">{{ $recipe->recipe_time }}：{{ optional($recipe->menu)->menu_name }}</a>
+                                        <form method="POST" action="{{ route('recipe.destroy') }}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="id" value="{{ $recipe->id }}">
+                                            <input type="submit" class="btn bg-white btn-sm pt-0" value="×">
+                                        </form>
                                     </div>
                                     @endforeach
                                 </td>
