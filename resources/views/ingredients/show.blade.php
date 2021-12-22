@@ -2,23 +2,20 @@
 @section('title', '買い物リスト')
 
 @section('content')
-<div class="text-right">
-    <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('ingredient.destroy') }}"><i class="far fa-trash-alt pr-1"></i>リスト削除</a>
-</div>
 <div class="container mb-5">
     <div class="row">
         <div class="col-6 offset-3 d-flex flex-wrap bg-white slide-in">
             <ul class="list-unstyled">
-                @foreach ($ingredients as $ingredient)
-                    <li class="mt-1">
-                        <div class="d-flex">
-                            {{-- 取り消し線を引くためのチェックボックス --}}
-                            <input type="checkbox" class="mt-1 mr-2">
-                            {{-- 材料名：量 --}}
-                            <span>{{ $ingredient["ingredient_name"] }}：{{ $ingredient["unit"] }}</span><br>
-                        </div>
-                    </li>
-                @endforeach
+            @foreach ($ingredients as $ingredient)
+                <li class="mt-1">
+                    <div class="d-flex">
+                        {{-- 取り消し線を引くためのチェックボックス --}}
+                        <input type="checkbox" class="mt-1 mr-2" onclick="changeLine('{{ $ingredient['id'] }}')">
+                        {{-- 材料名：量 --}}
+                        <span id="target-{{ $ingredient['id'] }}">{{ $ingredient["ingredient_name"] }}：{{ $ingredient["unit"] }}</span><br>
+                    </div>
+                </li>
+            @endforeach
             </ul>
         </div>
     </div>

@@ -33,6 +33,16 @@ function del(o) {
     o.parentNode.remove();
 }
 
+// 買い物リスト取消し線
+function changeLine(id) {
+    let obj = document.getElementById('target-' + id);
+    if ( obj.style.textDecoration == "line-through" ) {
+        obj.style.textDecoration = "none";
+    } else {
+        obj.style.textDecoration = "line-through";
+    }
+}
+
 //初期化することでformのresetとinputのchangeイベントにリスナが追加→選択したファイルが表示される
 bsCustomFileInput.init();
 
