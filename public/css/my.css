@@ -238,4 +238,13 @@ header {
         font-size: 0.8rem;
     }
 
+    .category-list {
+        margin: 2px 5px;
+    }
+
+    .category-item {
+        line-height: 1.25;
+        padding: 0.25em;
+    }
+
 }
