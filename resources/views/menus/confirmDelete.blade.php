@@ -14,7 +14,7 @@
         <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 mb-3 text-left border-bottom">
             <h3>写真</h3>
             <div class="text-center">
-                <img src="{{ $theMenu->image_path }}" class="img-fluid img-thumbnail h-25 w-25" alt="メニュー画像">
+                <img src="{{ Storage::disk('s3')->url($theMenu->image_path) }}" class="img-fluid img-thumbnail h-25 w-25" alt="メニュー画像">
             </div>
         </div>
         <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 mb-3 text-left border-bottom">

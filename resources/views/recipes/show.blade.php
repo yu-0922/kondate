@@ -7,7 +7,7 @@
         <h3 class="stitch d-inline-block">{{ $theMenu->menu_name }}</h3>
     </div>
     <div>
-        <img src="{{ $theMenu->image_path }}" class="text-center img-fluid img-thumbnail h-25 w-25" alt="メニュー画像">
+        <img src="{{ Storage::disk('s3')->url($theMenu->image_path) }}" class="text-center img-fluid img-thumbnail h-25 w-25" alt="メニュー画像">
     </div>
     <div class="my-5 col-md-6 offset-md-3">
         <p class="text-center">{{ $theMenu->description }}</p>

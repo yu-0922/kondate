@@ -22,7 +22,7 @@
             <div class="input-group">
                 <div class="custom-file">
                     <input type="file" name="image_path" class="custom-file-input" id="inputFile" value="{{ old('image_path', isset($theMenu->image_path) ? $theMenu->image_path : '') }}">
-                    <label class="custom-file-label" for="inputFile" data-browse="参照">{{ $theMenu->image_path }}</label>
+                    <label class="custom-file-label" for="inputFile" data-browse="参照">{{ Storage::disk('s3')->url($theMenu->image_path) }}</label>
                 </div>
                 <div class="input-group-append">
                     <button type="button" class="btn input-group-text ml-1" id="inputFileReset">取消</button>

@@ -8,6 +8,7 @@ use Facades\App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 class MenuController extends Controller
 {
@@ -56,18 +57,20 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            'image_path' => 'image|file|nullable',
-            'description' => 'max:1000|nullable',
+            'image_path' => 'nullable',
+            'description' => 'max:5000|nullable',
             'ing_name.*' => 'required|max:3000',
-            'ing_size.*' => 'required|max:3000',
+            'ing_size.*' => 'required|max:255',
             'step' => 'max:5000|nullable',
         ]);
 
         //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
-        $path = null;
-        if ($request->hasFile('image_path')) {
-            $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
-        }
+        // $path = null;
+        // if ($request->hasFile('image_path')) {
+        //     $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
+        // }
+        $path = Storage::disk('s3')->putFile('public/images', $request->file('image_path')->getClientOriginalName());
+
         //メニューテーブルにrequestで取得した値を保存
         $menu = \Auth::user()->menus()->create([
             'category_id' => $request->get('category_id'),
@@ -140,9 +143,9 @@ class MenuController extends Controller
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
             'image_path' => 'image|file|nullable',
-            'description' => 'max:1000|nullable',
+            'description' => 'max:5000|nullable',
             'ing_name.*' => 'required|max:3000',
-            'ing_size.*' => 'required|max:3000',
+            'ing_size.*' => 'required|max:255',
             'step' => 'max:5000|nullable',
         ]);
 

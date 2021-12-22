@@ -24,7 +24,7 @@
                 </div>
                 <a class="btn btn-outline-dark btn-sm" href="{{ url('/home?w=' . $after) }}">次の週</a>
             </div>
-            <div class="px-3 pb-3">
+            {{-- <div class="px-3 pb-3">
                 <table class="table table-responsive table-bordered">
                     <thead class="card-header">
                         <tr>
@@ -68,6 +68,45 @@
                         </tr>
                     </tbody>
                 </table>
+            </div> --}}
+            <div class="px-3 pb-3">
+                <ul class="list-unstyled">
+                    <li class="card-header">
+                        @foreach ($week_names as $week_name)
+                            <span class="col-2">{{ $week_name }}</span>
+                        @endforeach
+                    </li>
+                    <li class="card-body border">
+                        @foreach ($w_day as $day)
+                            <span class="col-1 border">
+                                @if($day[0] == $today)
+                                <a href="{{ url('/recipes/create?d='.$day[0]) }}" style="color:red">
+                                    {!! nl2br(e($day[1])) !!}
+                                </a>
+                                @else
+                                <a href="{{ url('/recipes/create?d='.$day[0]) }}" style="color:black">
+                                    {!! nl2br(e($day[1])) !!}
+                                </a>
+                                @endif
+                            </span>
+                        @endforeach
+                        @for($i=0; $i<7; $i++)
+                            <span class="col-1">
+                                @foreach($w_day[$i][2] as $recipe)
+                                <div class="d-flex">
+                                    <a style="color:black" href="{{ route('recipe.show', ['theMenu' => $recipe->menu]) }}">{{ $recipe->recipe_time }}：{{ optional($recipe->menu)->menu_name }}</a>
+                                    <form method="POST" action="{{ route('recipe.destroy') }}">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{ $recipe->id }}">
+                                        <input type="submit" class="btn bg-white btn-sm pt-0" value="×">
+                                    </form>
+                                </div>
+                                @endforeach
+                            </span>
+                        @endfor
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
