@@ -38,7 +38,7 @@
                         <div class="cover1"></div>
                         <div class="cover2"></div>
                         <div class="cover3"></div>
-                        <img src="{{ Storage::disk('s3')->url($theMenu->image_path) }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
+                        <img src="{{ $theMenu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
                     </div>
                     <div class="col-8">
                         <h3>{{ $theMenu->menu_name }}</h3>

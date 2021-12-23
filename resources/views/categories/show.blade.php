@@ -17,7 +17,7 @@
                             <div class="cover2"></div>
                             <div class="cover3"></div>
                             <a href="{{ route('menu.show', ['theMenu' => $menu]) }}">
-                                <img src="{{ Storage::disk('s3')->url($menu->image_path) }}" class="img-fluid img-thumbnail h-75 w-100" alt="メニュー画像">
+                                <img src="{{ $menu->image_path }}" class="img-fluid img-thumbnail h-75 w-100" alt="メニュー画像">
                             </a>
                         </div>
                         <div class="col-8 slide-in">

@@ -140,8 +140,8 @@
                         <div class="cover1"></div>
                         <div class="cover2"></div>
                         <div class="cover3"></div>
-                        {{-- <img src="/storage/images/{{ $menu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像"> --}}
                         <img src="{{ $menu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
+                        {{-- <img src="{{ Storage::disk('s3')->url('images/'. $menu->image_path. '.jpg') }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像"> --}}
                     </div>
                     <div class="col-8">
                         <h3 class="menu-name slide-in">{{ $menu->menu_name }}</h3>

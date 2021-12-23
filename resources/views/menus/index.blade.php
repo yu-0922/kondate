@@ -15,10 +15,13 @@
                             <div class="cover1"></div>
                             <div class="cover2"></div>
                             <div class="cover3"></div>
-                            <img src="{{ Storage::disk('s3')->url($menu->image_path) }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
+                            <img src="{{ $menu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
                         </div>
                         <div class="col-8">
                             <h3 class="menu-name slide-in">{{ $menu->menu_name }}</h3>
+                            @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 1)
+                            <a class="btn btn-outline-dark btn-sm slide-in mb-1" href="{{ route('recipe.createMenu', ['theMenu' => $menu]) }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a><br>
+                            @endif
                             <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('menu.show', ['theMenu' => $menu]) }}"><i class="fab fa-elementor pr-1"></i>詳細</a>
                             @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 1)
                             <a class="btn btn-outline-dark btn-sm slide-in" href="{{ route('menu.edit', ['theMenu' => $menu]) }}"><i class="fas fa-wrench pr-1"></i>編集</a>
