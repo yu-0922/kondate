@@ -9,18 +9,6 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // $categories = Category::orderBy('created_at', 'desc')->get();
-
-        // return view('categories.index', ['categories' => $categories]);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -32,6 +20,6 @@ class CategoryController extends Controller
 
         return view('categories.show', [
             'categories' => $categories,
-            'menus' => Menu::where('recipe_category_id', $id)->paginate(10)]);
+            'menus' => Menu::where('category_id', $id)->paginate(10)]);
     }
 }

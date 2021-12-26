@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', 'MenuController@index')->name('menu.index');
-
 Route::group(
     ["middleware" => "auth"],
     function() {
@@ -45,8 +43,9 @@ Route::group(
     }
 );
 
+Route::get('/menus', 'MenuController@index')->name('menu.index');
+
 // カテゴリー関連のルーティング
-// Route::get('/categories', 'CategoryController@index')->name('category.index');
 Route::get('/categories/{id}', 'CategoryController@show')->name('category.show');
 
 Auth::routes();

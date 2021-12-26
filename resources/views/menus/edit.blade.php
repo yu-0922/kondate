@@ -4,7 +4,7 @@
 @section('content')
 <h2 class="my-3 text-center slide-in">必要な箇所を編集し更新してください</h2>
     <div class="container text-center w-70 bg-light p-5 border border-3 slide-in">
-        <form method="POST" action="{{ route('menu.update', ['theMenu' => $theMenu]) }}">
+        <form method="POST" action="{{ route('menu.update', ['theMenu' => $theMenu]) }}" enctype='multipart/form-data'>
         <input type="hidden" name="_method" value="PUT">
         {{ csrf_field() }}
         <div class="form-group">
@@ -14,6 +14,13 @@
             <label for="inputName" class="col-md-6 text-left">{{ __('メニュー名') }}<span class="badge badge-danger ml-2 mb-1">{{ __('必須') }}</span>
             <input type="text" name="menu_name" class="form-control" id="inputName" value="{{ old('menu_name', $theMenu->menu_name) }}"></label>
         </div>
+        <div>
+            @if(!empty($theMenu->image_path))
+            <img src="{{ $theMenu->image_path }}" class="text-center image" alt="メニュー画像">
+            @else
+            <p>画像なし</p>
+            @endif
+        </div>
         <div class="form-group">
             @error('image_path')
             <span class="input-error">{{ $message }}</span>
@@ -21,8 +28,8 @@
             <label for="inputFile" class="col-md-6 text-left">{{ __('写真') }}
             <div class="input-group">
                 <div class="custom-file">
-                    <input type="file" name="image_path" class="custom-file-input" id="inputFile" value="{{ old('image_path', isset($theMenu->image_path) ? $theMenu->image_path : '') }}">
-                    <label class="custom-file-label" for="inputFile" data-browse="参照">{{ Storage::disk('s3')->url($theMenu->image_path) }}</label>
+                    <input type="file" name="image_path" class="custom-file-input" id="inputFile">
+                    <label class="custom-file-label" for="inputFile">画像を選択</label>
                 </div>
                 <div class="input-group-append">
                     <button type="button" class="btn input-group-text ml-1" id="inputFileReset">取消</button>

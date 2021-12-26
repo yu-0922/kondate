@@ -64,12 +64,11 @@ class MenuController extends Controller
             'step' => 'max:5000|nullable',
         ]);
 
-        //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
-        // $path = null;
-        // if ($request->hasFile('image_path')) {
-        //     $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
-        // }
-        $path = Storage::disk('s3')->putFile('public/images', $request->file('image_path')->getClientOriginalName());
+        //リクエストがあればS3にアップロードファイルを保存
+        if ($request->hasFile('image_path')) {
+            $upload_info = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
+            $path = Storage::disk('s3')->url($upload_info);
+        }
 
         //メニューテーブルにrequestで取得した値を保存
         $menu = \Auth::user()->menus()->create([
@@ -142,39 +141,43 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            'image_path' => 'image|file|nullable',
+            'image_path' => 'nullable',
             'description' => 'max:5000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:255',
             'step' => 'max:5000|nullable',
         ]);
 
-        //publicをstorageに置換し、storage/imagesディレクトリにアップロードファイルを保存
-        $path = null;
-        if ($request->hasFile('image_path')) {
-            $path = str_replace("public/", "/storage/", $request->file('image_path')->storeAs("/public/images", $request->file('image_path')->getClientOriginalName()));
-        }
-        //メニューテーブルにrequestで取得した値を保存
-        $menu = \Auth::user()->menus()->edit([
+        //requestで取得した値をプロパティに代入
+        $menu = Menu::find($request->id)->fill([
             'category_id' => $request->get('category_id'),
             'menu_name' => $request->get('menu_name'),
-            'image_path' => $path,
             'description' => $request->get('description'),
             'step' => $request->get('step'),
         ]);
+
+        //画像が選択された場合、S3にアップロードファイルを保存
+        if ($request->hasFile('image_path')) {
+            if ($request->file('image_path')->isValid()) {
+                $upload_info = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
+                $menu->image_path = Storage::disk('s3')->url($upload_info);
+            }
+        }
+        // メニューテーブル更新
+        $menu->update();
 
         $datas = $request->get('ing_name');
         $sizes = $request->get('ing_size');
 
         foreach($datas as $key => $data) {
-            Ingredient::edit([
+            Ingredient::update([
                 'menu_id' => $menu->id,
                 'ingredient_name' => $data,
                 'unit' => $sizes[$key]
             ]);
         }
 
-        return redirect()->route('menu.edit', [ 'theMenu' => Menu::find($request->id) ])->with('message', $validatedData['menu_name'] . 'を更新しました！');
+        return redirect()->route('home.show', [ 'theMenu' => Menu::find($request->id) ])->with('message', $validatedData['menu_name'] . 'を更新しました！');
     }
 
     public function confirmDelete(Request $request, $datas)
@@ -197,7 +200,7 @@ class MenuController extends Controller
         $theMenu = Menu::find($request->id);
         if(\Auth::id() == 1 || \Auth::id() == $theMenu->user_id){
             $theMenu->delete();
-            return redirect()->route('menu.index')->with('message', $theMenu->menu_name . 'を削除しました！');
+            return redirect()->route('home.show')->with('message', $theMenu->menu_name . 'を削除しました！');
         }
         abort(401);
     }
