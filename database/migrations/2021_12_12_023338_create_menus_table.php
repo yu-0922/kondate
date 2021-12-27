@@ -20,7 +20,6 @@ class CreateMenusTable extends Migration
             $table->string('menu_name');
             $table->string('image_path');
             $table->string('description', 5000);
-            $table->string('ingredient', 3000);
             $table->string('step', 5000);
             $table->string('menu_release');
             $table->timestamps();
