@@ -50,3 +50,6 @@ Route::get('/categories/{id}', 'CategoryController@show')->name('category.show')
 
 Auth::routes();
 
+if (env('APP_ENV') === 'production') {
+    URL::forceScheme('https');
+}
