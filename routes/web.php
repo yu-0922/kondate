@@ -22,7 +22,6 @@ Route::group(
         // メニュー関連のルーティング
         Route::get('/menus/create', 'MenuController@create')->name('menu.create');
         Route::post('/menus', 'MenuController@store')->name('menu.store');
-        Route::get('/menus/{id}', 'MenuController@show')->name('menu.show');
         Route::put('/menus/{id}', 'MenuController@update')->name('menu.update');
         Route::get('/menus/{id}/edit', 'MenuController@edit')->name('menu.edit');
         Route::get('/menus/{id}/delete', 'MenuController@confirmDelete')->name('menu.confirmDelete');
@@ -43,13 +42,14 @@ Route::group(
     }
 );
 
+// トップページ
+Route::get('/', 'MenuController@index');
+
+// メニュー関連のルーティング
 Route::get('/menus', 'MenuController@index')->name('menu.index');
+Route::get('/menus/{id}', 'MenuController@show')->name('menu.show');
 
 // カテゴリー関連のルーティング
 Route::get('/categories/{id}', 'CategoryController@show')->name('category.show');
 
 Auth::routes();
-
-if (env('APP_ENV') === 'production') {
-    URL::forceScheme('https');
-}
