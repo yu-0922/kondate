@@ -20,6 +20,7 @@ class CategoryController extends Controller
 
         return view('categories.show', [
             'categories' => $categories,
-            'menus' => Menu::where('category_id', $id)->paginate(10)]);
+            'menus' => Menu::where('category_id', $id)->paginate(10)
+        ]);
     }
 }
