@@ -10,7 +10,7 @@
         <h3 class="stitch d-inline-block">{{ $theMenu->menu_name }}</h3>
     </div>
     <div>
-        <img src="{{ $theMenu->image_path }}" class="text-center img-fluid img-thumbnail h-25 w-25" alt="メニュー画像">
+        <img src="{{ $theMenu->image_path }}" class="image" alt="メニュー画像">
     </div>
     <div class="my-5 col-md-6 offset-md-3">
         <p class="text-center">{{ $theMenu->description }}</p>
@@ -36,10 +36,10 @@
         </div>
     </div>
     @if ((\Auth::user() && $theMenu->user_id == \Auth::id())|| \Auth::id() == 1)
-    <a class="btn btn-outline-dark" href="{{ route('menu.edit', ['theMenu' => $theMenu]) }}"><i class="fas fa-wrench mr-1"></i>編集</a>
-    <a class="btn btn-outline-dark" href="{{ route('menu.confirmDelete', ['theMenu' => $theMenu]) }}"><i class="far fa-trash-alt mr-1"></i>削除</a>
+    <a class="btn original-button" href="{{ route('menu.edit', ['theMenu' => $theMenu]) }}"><i class="fas fa-wrench mr-1"></i>編集</a>
+    <a class="btn original-button" href="{{ route('menu.confirmDelete', ['theMenu' => $theMenu]) }}"><i class="far fa-trash-alt mr-1"></i>削除</a>
     @endif
-    <button type="button" class="btn btn-outline-dark" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
+    <button type="button" class="btn original-button" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
 </div>
 
 @endsection

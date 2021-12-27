@@ -14,7 +14,7 @@
         <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 mb-3 text-left border-bottom">
             <h3>写真</h3>
             <div class="text-center">
-                <img src="{{ $theMenu->image_path }}" class="img-fluid img-thumbnail h-25 w-25" alt="メニュー画像">
+                <img src="{{ $theMenu->image_path }}" class="image" alt="メニュー画像">
             </div>
         </div>
         <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 mb-3 text-left border-bottom">
@@ -42,8 +42,8 @@
             </div>
         </div>
         <div>
-            <input type="submit" class="btn btn-outline-dark mr-3" value="削除">
-            <button type="button" class="btn btn-outline-dark" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
+            <input type="submit" class="btn original-button mr-3" value="削除">
+            <button type="button" class="btn original-button" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
         </div>
         </form>
     </div>

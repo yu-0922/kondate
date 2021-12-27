@@ -33,9 +33,8 @@
         </div>
     </div>
     @if ((\Auth::user() && $theMenu->user_id == \Auth::id())|| \Auth::id() == 1)
-    <a class="btn btn-outline-dark" href="{{ route('menu.edit', ['theMenu' => $theMenu]) }}"><i class="fas fa-wrench mr-1"></i>編集</a>
+    <a class="btn original-button" href="{{ route('menu.edit', ['theMenu' => $theMenu]) }}"><i class="fas fa-wrench mr-1"></i>編集</a>
     @endif
-    <button type="button" class="btn btn-outline-dark" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
+    <button type="button" class="btn original-button" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
 </div>
-
 @endsection

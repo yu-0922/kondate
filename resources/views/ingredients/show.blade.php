@@ -19,11 +19,8 @@
             </ul>
         </div>
     </div>
-    <div class="m-3">
-            <button type="button" class="btn btn-outline-dark text-center" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
-        </div>
+    <div class="m-3 float-right slide-in">
+        <button type="button" class="btn original-button text-center" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
     </div>
 </div>
-<script>
-</script>
 @endsection

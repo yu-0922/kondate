@@ -2,11 +2,11 @@
 @section('title', 'カレンダー登録')
 
 @section('content')
-<h2 class="my-5 text-center slide-in">以下の欄を入力し登録してください</h2>
-<div class="container text-center w-70 p-3 bg-white border border-3 slide-in">
+<h2 class="my-3 text-center slide-in">以下の欄を入力し登録してください</h2>
+<div class="container text-center w-70 p-3 mb-3 bg-white border border-3 slide-in">
     <form method="POST" action="{{ route('home.store') }}">
     {{ csrf_field() }}
-    <label for="create-date" class="col-8 text-left">{{ __('調理日') }}
+    <label for="create-date" class="col-12 text-left">{{ __('調理日') }}
         <div class="form-group text-center">
             <input type="date" name="cooking_day" id="date" class="p-2 w-100 text-center">
         </div>
@@ -30,21 +30,21 @@
             </div>
         </div>
         <div class="form-group d-flex flex-wrap">
-            <div class="item col-12 col-md-6">
+            <div class="item col-8">
                 <div class="row">
                     <input type="radio" name="menu_id" class="form-check-input" id="menu" value="{{ $theMenu->id }}" {{ old ('menu_id') == $theMenu->id ? 'checked' : '' }} checked>
                     <label for="menu" class="form-check-label"></label>
-                    <div class="col-4 zoom-animation img-wrap">
+                    <div class="col-4 zoom-animation img-wrap text-center">
                         <div class="cover1"></div>
                         <div class="cover2"></div>
                         <div class="cover3"></div>
-                        <img src="{{ $theMenu->image_path }}" class="img-fluid img-thumbnail text-center h-75 w-100" alt="メニュー画像">
+                        <img src="{{ $theMenu->image_path }}" class="image" alt="メニュー画像">
                     </div>
                     <div class="col-8">
-                        <h3>{{ $theMenu->menu_name }}</h3>
+                        <h3 class="border-bottom">{{ $theMenu->menu_name }}</h3>
                         <h4>
                         @foreach ($theMenu->ingredients as $ingredient)
-                            <p class="text-center">{{ $ingredient->ingredient_name }}：{{ $ingredient->unit }}</p>
+                            <p class="text-center m-0">{{ $ingredient->ingredient_name }}：{{ $ingredient->unit }}</p>
                         @endforeach
                         </h4>
                     </div>
@@ -52,7 +52,8 @@
             </div>
         </div>
         <div class="text-center form-group mb-5">
-            <input type="submit" class="btn btn-outline-dark mr-3" value="登録">
+            <input type="submit" class="btn original-button mr-3" value="登録">
+            <button type="button" class="btn original-button" onclick="history.back()"><i class="far fa-caret-square-left mr-1"></i>戻る</button>
         </div>
     </label>
     </form>

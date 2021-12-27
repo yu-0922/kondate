@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" class="h-100 w-100">
+<html lang="ja" class="h-100">
     <head>
         <meta charset="utf-8">
         <title>@yield('title')</title>
@@ -13,7 +13,7 @@
         <script src="https://kit.fontawesome.com/0722d56e11.js" crossorigin="anonymous"></script>
     </head>
     <body class="d-flex flex-column h-100">
-    <!----- ヘッダー ----->
+        <!----- ヘッダー ----->
         <header>
             <div class="container-fluid">
                 <div class="row justify-content-around">
@@ -52,7 +52,7 @@
             @if (session()->has("message"))
             <div class="row">
                 <div class="ml-4">
-                    <div class="m-2 p-2 border border-dark bg-light">{{ session('message') }}</div>
+                    <div class="m-2 p-2 border border-dark bg-light slide-in">{{ session('message') }}</div>
                 </div>
             </div>
             @endif
@@ -65,19 +65,19 @@
         <!----- メインコンテンツ END ----->
 
         <!----- フッター ----->
-        <div>
+        <footer class="mt-auto">
             <ul class="navbar-nav">
                 @if (!\Auth::user())
-                <li><a class="nav-link footer-nav" href="{{ route('register') }}">会員登録</a></li>
-                <li><a class="nav-link footer-nav" href="{{ route('login') }}">ログイン</a></li>
+                <li class="slide-in"><a class="nav-link footer-nav" href="{{ route('register') }}">会員登録</a></li>
+                <li class="slide-in"><a class="nav-link footer-nav" href="{{ route('login') }}">ログイン</a></li>
                 @else
-                <li><a class="nav-link footer-nav" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
-                <li><a class="nav-link footer-nav" href="{{ route('home.show') }}">マイページ</a></li>
-                <li><a class="nav-link footer-nav" href="{{ route('logout') }}">ログアウト</a></li>
+                <li class="slide-in"><a class="nav-link footer-nav" href="{{ route('menu.create') }}">メニュー新規登録</a></li>
+                <li class="slide-in"><a class="nav-link footer-nav" href="{{ route('home.show') }}">マイページ</a></li>
+                <li class="slide-in"><a class="nav-link footer-nav" href="{{ route('logout') }}">ログアウト</a></li>
                 @endif
             </ul>
-            <div class="footer mt-auto py-3">&copy; 2021 yusuke all rights reserved.</div>
-        </div>
+            <div class="text-center py-3 g-color slide-in">&copy; 2021 yusuke all rights reserved.</div>
+        </footer>
         <!----- フッター END ----->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
