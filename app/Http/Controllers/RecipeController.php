@@ -11,16 +11,6 @@ use Illuminate\Http\Request;
 class RecipeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,26 +31,11 @@ class RecipeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     return view('home', ['recipe' => Recipe::get()]);
-    // }
     public function show($id)
     {
         return view ('recipes.show', [
@@ -69,7 +44,6 @@ class RecipeController extends Controller
             'ingredients' => Ingredient::where('menu_id', $id)->get()
         ]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -89,27 +63,6 @@ class RecipeController extends Controller
         abort(401);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function confirmDelete(Request $request, $datas)
-    {
-        return view ('recipes.confirmDelete', [
-            'theMenu' => Menu::find($request->id),
-            'datas' => $datas,
-            'categories' => Category::get(),
-        ]);
-    }
-
     public function destroy(Request $request)
     {
         $theMenu = Recipe::find($request->id);
@@ -118,7 +71,6 @@ class RecipeController extends Controller
             $theMenu->delete();
             return redirect()->route('home.show');
         }
-
         abort(401);
     }
 }
