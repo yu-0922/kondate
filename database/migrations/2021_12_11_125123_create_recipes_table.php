@@ -18,7 +18,7 @@ class CreateRecipesTable extends Migration
             $table->integer('user_id');
             $table->date('cooking_day');
             $table->string('recipe_time');
-            $table->increments('menu_id')->unsigned();
+            $table->bigInteger('menu_id')->unsigned();
             $table->timestamps();
         });
     }
