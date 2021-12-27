@@ -57,7 +57,7 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            'image_path' => 'file|image|nullable',
+            'image_path' => 'nullable',
             'description' => 'max:5000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:255',
