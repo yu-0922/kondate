@@ -51,8 +51,9 @@
                         </tr>
                         <tr>
                             @for($i=0; $i<7; $i++)
-                                <td class="table-size">
-                                    @foreach($w_day[$i][2] as $recipe)
+                            <td class="table-size">
+                                @foreach($w_day[$i][2] as $recipe)
+                                @if ((\Auth::user() && $recipe->user_id == \Auth::id()))
                                     <div class="d-flex">
                                         <a style="color:black" href="{{ route('recipe.show', ['theMenu' => $recipe->menu]) }}">{{ $recipe->recipe_time }}：{{ optional($recipe->menu)->menu_name }}</a>
                                         <form method="POST" action="{{ route('recipe.destroy') }}">
@@ -62,8 +63,9 @@
                                             <input type="submit" class="btn bg-white btn-sm pt-0" value="×">
                                         </form>
                                     </div>
-                                    @endforeach
-                                </td>
+                                @endif
+                                @endforeach
+                            </td>
                             @endfor
                         </tr>
                     </tbody>
