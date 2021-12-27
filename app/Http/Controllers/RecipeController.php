@@ -21,6 +21,7 @@ class RecipeController extends Controller
         return view('recipes.create',[
             'menus' => $menus
         ]);
+        abort(401);
     }
 
     public function createMenu(Request $request)
@@ -28,6 +29,7 @@ class RecipeController extends Controller
         return view('recipes.createMenu',[
             'theMenu' => Menu::find($request->id)
         ]);
+        abort(401);
     }
 
     /**

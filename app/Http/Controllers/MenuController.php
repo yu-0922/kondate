@@ -57,7 +57,7 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required',
             'menu_name' => 'required|max:255',
-            'image_path' => 'nullable',
+            'image_path' => 'file|image|nullable',
             'description' => 'max:5000|nullable',
             'ing_name.*' => 'required|max:3000',
             'ing_size.*' => 'required|max:255',
@@ -65,6 +65,7 @@ class MenuController extends Controller
         ]);
 
         //リクエストがあればS3にアップロードファイルを保存
+        $path = '';
         if ($request->hasFile('image_path')) {
             $upload_info = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
             $path = Storage::disk('s3')->url($upload_info);
