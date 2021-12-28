@@ -5,7 +5,7 @@
 <div class="text-right">
     <a class="btn original-button slide-in" href="{{ route('recipe.createMenu', ['theMenu' => $theMenu]) }}">カレンダー登録</a>
 </div>
-<div class="container text-center w-60 bg-light p-5 my-3 border border-3 slide-in">
+<div class="container text-center w-60 bg-white p-5 my-3 border border-3 slide-in">
     <div class="col-md-6 offset-md-3 mb-5 text-left">
         <h3 class="stitch d-inline-block">{{ $theMenu->menu_name }}</h3>
     </div>
