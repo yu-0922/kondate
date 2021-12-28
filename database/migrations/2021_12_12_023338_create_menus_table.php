@@ -18,9 +18,9 @@ class CreateMenusTable extends Migration
             $table->integer('category_id');
             $table->integer('user_id');
             $table->string('menu_name');
-            $table->string('image_path');
-            $table->string('description', 5000);
-            $table->string('step', 5000);
+            $table->string('image_path')->nullable();
+            $table->string('description', 5000)->nullable();
+            $table->string('step', 5000)->nullable();
             $table->string('menu_release');
             $table->timestamps();
         });
