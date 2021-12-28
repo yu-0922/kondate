@@ -66,9 +66,8 @@ class MenuController extends Controller
 
         //リクエストがあればS3にアップロードファイルを保存
         $path = '';
-        if ($request->file('image_path')->isValid()) {
-            $upload_info = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
-            $path = Storage::disk('s3')->url($upload_info);
+        if ($request->hasFile('image_path')) {
+            $path = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
         }
 
         //メニューテーブルにrequestで取得した値を保存
