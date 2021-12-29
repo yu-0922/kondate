@@ -159,8 +159,7 @@ class MenuController extends Controller
         //画像が選択された場合、S3にアップロードファイルを保存
         if ($request->hasFile('image_path')) {
             if ($request->file('image_path')->isValid()) {
-                $upload_info = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
-                $menu->image_path = Storage::disk('s3')->url($upload_info);
+                $menu->image_path = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
             }
         }
         // メニューテーブル更新
