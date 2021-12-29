@@ -103,7 +103,8 @@
                         <div class="cover1"></div>
                         <div class="cover2"></div>
                         <div class="cover3"></div>
-                        <img src="{{ Storage::disk('s3')->url($menu->image_path) ?: asset('images/no_image.png') }}" class="image" alt="メニュー画像">
+                        {{-- <img src="{{ Storage::disk('s3')->url($menu->image_path) ?: asset('images/no_image.png') }}" class="image" alt="メニュー画像"> --}}
+                        <img src="{{ $menu->image_path ?: asset('images/no_image.png') }}" class="image" alt="メニュー画像">
                     {{-- @php
                         dd($menu->image_path);
                     @endphp --}}
