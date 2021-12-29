@@ -3,7 +3,9 @@
 
 @section('content')
 <div class="text-right">
+    @if (\Auth::user())
     <a class="btn original-button slide-in" href="{{ route('recipe.createMenu', ['theMenu' => $theMenu]) }}">カレンダー登録</a>
+    @endif
 </div>
 <div class="container text-center w-60 bg-white p-5 my-3 border border-3 slide-in">
     <div class="col-md-6 offset-md-3 mb-5 text-left">
@@ -35,7 +37,7 @@
             @endforeach
         </div>
     </div>
-    @if ((\Auth::user() && $theMenu->user_id == \Auth::id())|| \Auth::id() == 1)
+    @if ((\Auth::user() && $theMenu->user_id == \Auth::id())|| \Auth::id() == 4)
     <a class="btn original-button" href="{{ route('menu.edit', ['theMenu' => $theMenu]) }}"><i class="fas fa-wrench mr-1"></i>編集</a>
     <a class="btn original-button" href="{{ route('menu.confirmDelete', ['theMenu' => $theMenu]) }}"><i class="far fa-trash-alt mr-1"></i>削除</a>
     @endif
