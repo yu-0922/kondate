@@ -103,7 +103,10 @@
                         <div class="cover1"></div>
                         <div class="cover2"></div>
                         <div class="cover3"></div>
-                        <img src="{{ $menu->image_path ?: asset('images/no_image.png') }}" class="image" alt="メニュー画像">
+                        <img src="{{ Storage::disk('s3')->url($menu->image_path) ?: asset('images/no_image.png') }}" class="image" alt="メニュー画像">
+                    {{-- @php
+                        dd($menu->image_path);
+                    @endphp --}}
                     </div>
                     <div class="col-8">
                         <h3 class="menu-name slide-in mb-1">{{ $menu->menu_name }}</h3>

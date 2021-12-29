@@ -69,7 +69,7 @@ class MenuController extends Controller
         if ($request->hasFile('image_path')) {
             $path = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
         }
-
+        dd($path);
         //メニューテーブルにrequestで取得した値を保存
         $menu = \Auth::user()->menus()->create([
             'category_id' => $request->get('category_id'),
