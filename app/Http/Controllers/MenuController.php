@@ -119,7 +119,7 @@ class MenuController extends Controller
     {
         $theMenu = Menu::find($request->id);
 
-        if(\Auth::id() == 1 || \Auth::id() == $theMenu->user_id){
+        if(\Auth::id() == 4 || \Auth::id() == $theMenu->user_id){
             return view ('menus.edit', [
                 'theMenu' => $theMenu ,
                 'datas' => $datas,
@@ -197,7 +197,7 @@ class MenuController extends Controller
     public function destroy(Request $request)
     {
         $theMenu = Menu::find($request->id);
-        if(\Auth::id() == 1 || \Auth::id() == $theMenu->user_id){
+        if(\Auth::id() == 4 || \Auth::id() == $theMenu->user_id){
             $theMenu->delete();
             return redirect()->route('home.show')->with('message', $theMenu->menu_name . 'を削除しました！');
         }

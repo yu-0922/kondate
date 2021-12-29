@@ -111,7 +111,7 @@
                         <a class="btn original-button btn-sm slide-in mb-1" href="{{ route('recipe.createMenu', ['theMenu' => $menu]) }}"><i class="far fa-calendar-alt pr-1"></i>カレンダー登録</a><br>
                         @endif
                         <a class="btn original-button btn-sm slide-in" href="{{ route('menu.show', ['theMenu' => $menu]) }}"><i class="fab fa-elementor pr-1"></i>詳細</a>
-                        @if ((\Auth::user() && $menu->user_id == \Auth::id())|| \Auth::id() == 4)
+                        @if ((\Auth::user() && $menu->user_id == \Auth::id()) || \Auth::id() == 4)
                         <a class="btn original-button btn-sm slide-in" href="{{ route('menu.edit', ['theMenu' => $menu]) }}"><i class="fas fa-wrench pr-1"></i>編集</a>
                         <a class="btn original-button btn-sm slide-in" href="{{ route('menu.confirmDelete', ['theMenu' => $menu]) }}"><i class="far fa-trash-alt pr-1"></i>削除</a>
                         @endif
