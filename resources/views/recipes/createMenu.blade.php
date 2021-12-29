@@ -38,7 +38,7 @@
                         <div class="cover1"></div>
                         <div class="cover2"></div>
                         <div class="cover3"></div>
-                        <img src="{{ $theMenu->image_path }}" class="image" alt="メニュー画像">
+                        <img src="{{ $theMenu->image_path ? Storage::disk('s3')->url($theMenu->image_path) : asset('images/no_image.png') }}" class="image" alt="メニュー画像">
                     </div>
                     <div class="col-8">
                         <h3 class="border-bottom">{{ $theMenu->menu_name }}</h3>
