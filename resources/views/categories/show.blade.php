@@ -12,7 +12,7 @@
             <div class="row col-md-12 col-lg-6">
                 <div class="col-12 d-flex flex-wrap my-2">
                     <div class="col-5 slide-in p-0">
-                        <img src="{{ $menu->image_path }}" class="image" alt="メニュー画像">
+                        <img src="{{ $menu->image_path ? Storage::disk('s3')->url($menu->image_path) : asset('images/no_image.png') }}" class="image" alt="メニュー画像">
                     </div>
                     <div class="col-7 slide-in">
                         <h3 class="menu-name slide-in">{{ $menu->menu_name }}</h3>

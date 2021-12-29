@@ -16,7 +16,7 @@
         </div>
         <div>
             @if(!empty($theMenu->image_path))
-            <img src="{{ $theMenu->image_path }}" class="text-center image" alt="メニュー画像">
+            <img src="{{ $theMenu->image_path ? Storage::disk('s3')->url($theMenu->image_path) : asset('images/no_image.png') }}" class="image" alt="メニュー画像">
             @else
             <p>画像なし</p>
             @endif
