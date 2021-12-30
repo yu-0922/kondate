@@ -21,7 +21,6 @@ class CreateMenusTable extends Migration
             $table->string('image_path')->nullable();
             $table->string('description', 5000)->nullable();
             $table->string('step', 5000)->nullable();
-            $table->string('menu_release');
             $table->timestamps();
         });
     }

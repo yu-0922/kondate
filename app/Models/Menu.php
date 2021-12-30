@@ -4,12 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
 {
-    use SoftDeletes;
-
     //指定したカラムにデータの挿入を許可する
     protected $fillable = ['menu_name', 'user_id', 'image_path', 'description', 'step', 'category_id'];
 
