@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="form-group d-flex flex-wrap">
-            <div class="item col-8">
+            <div class="item col-12">
                 <div class="row">
                     <input type="radio" name="menu_id" class="form-check-input" id="menu" value="{{ $theMenu->id }}" {{ old ('menu_id') == $theMenu->id ? 'checked' : '' }} checked>
                     <label for="menu" class="form-check-label"></label>
