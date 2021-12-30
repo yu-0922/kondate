@@ -138,54 +138,64 @@ class MenuController extends Controller
      */
     public function update(Request $request, $datas)
     {
-        $validatedData = $request->validate([
-            'category_id' => 'required',
-            'menu_name' => 'required|max:255',
-            'image_path' => 'nullable',
-            'description' => 'max:5000|nullable',
-            'ing_name.*' => 'required|max:3000',
-            'ing_size.*' => 'required|max:255',
-            'step' => 'max:5000|nullable',
-        ]);
+        $menu = Menu::find($request->id);
 
-        //requestで取得した値をプロパティに代入
-        $menu = Menu::find($request->id)->fill([
-            'category_id' => $request->get('category_id'),
-            'menu_name' => $request->get('menu_name'),
-            'description' => $request->get('description'),
-            'step' => $request->get('step'),
-        ]);
-
-        //画像が選択された場合、S3にアップロードファイルを保存
-        if ($request->hasFile('image_path')) {
-            if ($request->file('image_path')->isValid()) {
-                $menu->image_path = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
-            }
-        }
-        // メニューテーブル更新
-        $menu->update();
-
-        $datas = $request->get('ing_name');
-        $sizes = $request->get('ing_size');
-
-        foreach($datas as $key => $data) {
-            Ingredient::update([
-                'menu_id' => $menu->id,
-                'ingredient_name' => $data,
-                'unit' => $sizes[$key]
+        if (\Auth::id() == 4 || \Auth::id() == $menu->user_id) {
+            $validatedData = $request->validate([
+                'category_id' => 'required',
+                'menu_name' => 'required|max:255',
+                'image_path' => 'nullable',
+                'description' => 'max:5000|nullable',
+                'ing_name.*' => 'required|max:3000',
+                'ing_size.*' => 'required|max:255',
+                'step' => 'max:5000|nullable',
             ]);
-        }
 
-        return redirect()->route('home.show', [ 'theMenu' => Menu::find($request->id) ])->with('message', $validatedData['menu_name'] . 'を更新しました！');
+            //requestで取得した値をプロパティに代入
+            $menu->fill([
+                'category_id' => $request->get('category_id'),
+                'menu_name' => $request->get('menu_name'),
+                'description' => $request->get('description'),
+                'step' => $request->get('step'),
+            ]);
+
+            //画像が選択された場合、S3にアップロードファイルを保存
+            if ($request->hasFile('image_path')) {
+                if ($request->file('image_path')->isValid()) {
+                    $menu->image_path = Storage::disk('s3')->putFile('/images', $request->file('image_path'), 'public');
+                }
+            }
+            // メニューテーブル更新
+            $menu->update();
+
+            $datas = $request->get('ing_name');
+            $sizes = $request->get('ing_size');
+
+            foreach($datas as $key => $data) {
+                Ingredient::update([
+                    'menu_id' => $menu->id,
+                    'ingredient_name' => $data,
+                    'unit' => $sizes[$key]
+                ]);
+            }
+
+            return redirect()->route('home.show', [ 'theMenu' => Menu::find($request->id) ])->with('message', $validatedData['menu_name'] . 'を更新しました！');
+        }
+        abort(401);
     }
 
     public function confirmDelete(Request $request, $datas)
     {
-        return view ('menus.confirmDelete', [
-            'theMenu' => Menu::find($request->id),
-            'datas' => $datas,
-            'categories' => Category::get(),
-        ]);
+        $theMenu = Menu::find($request->id);
+
+        if(\Auth::id() == 4 || \Auth::id() == $theMenu->user_id){
+            return view ('menus.confirmDelete', [
+                'theMenu' => $theMenu,
+                'datas' => $datas,
+                'categories' => Category::get(),
+            ]);
+        }
+        abort(401);
     }
 
     /**

@@ -47,24 +47,6 @@ class RecipeController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request)
-    {
-        $recipes = Recipe::find($request->id);
-
-        if(\Auth::id() == $recipes->user_id){
-            return view ('recipes.edit', [
-                'recipes' => $recipes ,
-            ]);
-        }
-        abort(401);
-    }
-
     public function destroy(Request $request)
     {
         $theMenu = Recipe::find($request->id);
