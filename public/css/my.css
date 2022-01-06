@@ -116,6 +116,11 @@ footer {
     height: 150px;
 }
 
+.c-image {
+    width: 150px;
+    height: 150px;
+}
+
 .stitch {
     padding: 0.5em;
     margin: 1em auto;
@@ -267,5 +272,10 @@ footer {
     .image {
         width: 100px;
         height: 100px;
+    }
+
+    .c-image {
+        width: 90px;
+        height: 90px;
     }
 }
